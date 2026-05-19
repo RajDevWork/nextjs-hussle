@@ -1,18 +1,26 @@
-'use client'
-import React, { useEffect, useState } from 'react'
+// 'use client'
+// import React, { useEffect, useState } from 'react'
+async function getData(){
+    let res = await fetch('https://dummyjson.com/products')
+    let json = await res.json()
+    return json['products']
 
-const page = () => {
-    const [Data, setData] = useState([])
+}
 
-    useEffect(() => {
+const page = async() => {
 
-        (async()=>{
-            let res = await fetch('https://dummyjson.com/products')
-            let json = await res.json()
-            setData(json['products'])
-        })()
+    const Data = await getData()
+    // const [Data, setData] = useState([])
+
+    // useEffect(() => {
+
+    //     (async()=>{
+    //         let res = await fetch('https://dummyjson.com/products')
+    //         let json = await res.json()
+    //         setData(json['products'])
+    //     })()
       
-    }, [])
+    // }, [])
     
 
   return (
