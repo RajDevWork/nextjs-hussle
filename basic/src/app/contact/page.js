@@ -1,8 +1,13 @@
+import Menu from '@/components/Menu'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>This is contact page</div>
+    <div>
+        <Menu />
+        <h1>
+            This is contact page
+        </h1></div>
   )
 }
 
