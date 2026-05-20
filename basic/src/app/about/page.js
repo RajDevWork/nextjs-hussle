@@ -2,7 +2,11 @@ import React from 'react'
 import styles from './aboutStyle.module.css'
 import Menu from '@/components/Menu'
 
-const page = () => {
+const page = async() => {
+
+     await new Promise((resolve) =>
+      setTimeout(resolve, 3000)
+    )
   return (
     <div className={styles.textColor}>
       <Menu />
