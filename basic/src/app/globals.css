@@ -3,3 +3,17 @@
 .global-text{
   color:red
 }
+#nprogress .bar {
+  background: linear-gradient(
+    to right,
+    #00f5ff,
+    #ff00ff,
+    #00ff85
+  ) !important;
+}
+
+#nprogress .peg {
+  box-shadow:
+    0 0 10px #ff00ff,
+    0 0 20px #00ffff;
+}
