@@ -1,4 +1,4 @@
-// 'use client'
+ 'use client'
 // import React, { useEffect, useState } from 'react'
 async function getData(){
     let res = await fetch('https://dummyjson.com/products')
@@ -25,6 +25,7 @@ const page = async() => {
 
   return (
     <div>
+        <button onClick={()=>alert('Hi Raj')}>Click Here</button>
         <p>
             Call API
         </p>
