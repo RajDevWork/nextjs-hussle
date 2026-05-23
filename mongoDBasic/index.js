@@ -44,7 +44,34 @@ async function getInformation(){
     // const users = await User.find({age:{$lt:30}}) // age less than to 30
     // const users = await User.find({age:{$lte:30}}) // age less than equal to 30
     // const users = await User.find({age:{$in:[30,31,32,25]}}) // age in []
-    const users = await User.find({age:{$nin:[30,31,32,25]}}) // age not in []
+    // const users = await User.find({age:{$nin:[30,31,32,25]}}) // age not in []
+
+    //complex query and , or operation
+
+    // =========================================
+    // 1. $and → AND Condition
+    // =========================================
+
+    // Both conditions must be true
+    // const users = await User.find({
+    //     $and: [
+    //         { isMarried: false },
+    //         { salary: { $gt: 50000 } }
+    //     ]
+    // })
+
+    // =========================================
+    // 2. $or → OR Condition
+    // =========================================
+
+    // Any one condition can be true
+    // const users = await User.find({
+    //     $or: [
+    //         { age: 25 },
+    //         { age: 30 }
+    //     ]
+    // })
+
 
     console.log(users)
 }
