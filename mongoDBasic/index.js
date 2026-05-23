@@ -482,7 +482,9 @@ async function getInformation(){
 
     //update 2nd way:
 
-    const users = await User.findByIdAndUpdate("6a118fce3bfc9ef96b705192",{age:55,isMarried:true},{new:true,runValidators:true})
+    // const users = await User.findByIdAndUpdate("6a118fce3bfc9ef96b705192",{age:55,isMarried:true},{new:true,runValidators:true})
+
+    const users = await User.deleteOne({_id:"6a118fce3bfc9ef96b705192"})
 
 
 
