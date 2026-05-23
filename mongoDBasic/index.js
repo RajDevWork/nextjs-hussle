@@ -73,6 +73,410 @@ async function getInformation(){
     // })
 
 
+
+    // =========================================
+    // 3. $not → NOT Condition
+    // =========================================
+
+    // age should NOT be greater than 30
+    // await User.find({
+    //     age: {
+    //         $not: { $gt: 30 }
+    //     }
+    // })
+
+
+
+    // =========================================
+    // 4. $nor
+    // =========================================
+
+    // Neither condition should match
+    // await User.find({
+    //     $nor: [
+    //         { age: 25 },
+    //         { salary: 50000 }
+    //     ]
+    // })
+
+
+
+    // =========================================
+    // 5. $exists
+    // =========================================
+
+    // Check if salary field exists
+    // await User.find({
+    //     salary: { $exists: true }
+    // })
+
+
+
+    // =========================================
+    // 6. $type
+    // =========================================
+
+    // Find documents where age is number type
+    // await User.find({
+    //     age: { $type: "number" }
+    // })
+
+
+
+    // =========================================
+    // 7. $regex → Pattern Search
+    // =========================================
+
+    // Search names containing "Raj"
+    // await User.find({
+    //     name: { $regex: "Raj" }
+    // })
+
+
+
+    // =========================================
+    // 8. Case Insensitive Search
+    // =========================================
+
+    // "raj", "RAJ", "Raj" all work
+    // await User.find({
+    //     name: {
+    //         $regex: "raj",
+    //         $options: "i"
+    //     }
+    // })
+
+
+
+    // =========================================
+    // 9. Starts With
+    // =========================================
+
+    // Names starting with R
+    // await User.find({
+    //     name: { $regex: "^R" }
+    // })
+
+
+
+    // =========================================
+    // 20. Ends With
+    // =========================================
+
+    // Names ending with r
+    // await User.find({
+    //     name: { $regex: "r$" }
+    // })
+
+
+
+    // =========================================
+    // 11. $all → Array Must Contain All
+    // =========================================
+
+    // skills array must contain BOTH
+    // await User.find({
+    //     skills: {
+    //         $all: ["Node.js", "MongoDB"]
+    //     }
+    // })
+
+
+
+    // =========================================
+    // 12. $size → Array Length
+    // =========================================
+
+    // skills array length should be 3
+    // await User.find({
+    //     skills: { $size: 3 }
+    // })
+
+
+
+    // =========================================
+    // 13. Projection
+    // =========================================
+
+    // Show only name and age
+    // await User.find({}, "name age")
+
+
+
+    // =========================================
+    // 14. Projection Using Object
+    // =========================================
+
+    // 1 means include field
+    // await User.find({}, {
+    //     name: 1,
+    //     age: 1
+    // })
+
+
+
+    // =========================================
+    // 15. sort() Ascending
+    // =========================================
+
+    // age low to high
+    // await User.find().sort({
+    //     age: 1
+    // })
+
+
+
+    // =========================================
+    // 16`. sort() Descending
+    // =========================================
+
+    // age high to low
+    // await User.find().sort({
+    //     age: -1
+    // })
+
+
+
+    // =========================================
+    // 17. limit()
+    // =========================================
+
+    // Get only 5 documents
+    // await User.find().limit(5)
+
+
+
+    // =========================================
+    // 18. skip()
+    // =========================================
+
+    // Skip first 5 documents
+    // await User.find().skip(5)
+
+
+
+    // =========================================
+    // 19. select()
+    // =========================================
+
+    // Select only name and salary
+    // await User.find().select("name salary")
+
+
+
+    // =========================================
+    // 20. countDocuments()
+    // =========================================
+
+    // Count unmarried users
+    // await User.countDocuments({
+    //     isMarried: false
+    // })
+
+
+
+    // =========================================
+    // 21. deleteOne()
+    // =========================================
+
+    // Delete first matching document
+    // await User.deleteOne({
+    //     name: "Raj"
+    // })
+
+
+
+    // =========================================
+    // 21. deleteMany()
+    // =========================================
+
+    // Delete all users age < 18
+    // await User.deleteMany({
+    //     age: { $lt: 18 }
+    // })
+
+
+
+    // =========================================
+    // 22. updateOne()
+    // =========================================
+
+    // Update one user
+    // await User.updateOne(
+    //     { name: "Raj" },
+
+    //     {
+    //         $set: {
+    //             salary: 90000
+    //         }
+    //     }
+    // )
+
+
+
+    // =========================================
+    // 23. updateMany()
+    // =========================================
+
+    // Increase salary of all unmarried users
+    // await User.updateMany(
+
+    //     { isMarried: false },
+
+    //     {
+    //         $inc: {
+    //             salary: 5000
+    //         }
+    //     }
+    // )
+
+
+
+    // =========================================
+    // 24. $set
+    // =========================================
+
+    // Set/update field value
+    // await User.updateOne(
+    //     { name: "Raj" },
+
+    //     {
+    //         $set: {
+    //             age: 30
+    //         }
+    //     }
+    // )
+
+
+
+    // =========================================
+    // 25. $inc
+    // =========================================
+
+    // Increase salary by 5000
+    // await User.updateOne(
+    //     { name: "Raj" },
+
+    //     {
+    //         $inc: {
+    //             salary: 5000
+    //         }
+    //     }
+    // )
+
+
+
+    // =========================================
+    // 26. $unset
+    // =========================================
+
+    // Remove salary field
+    // await User.updateOne(
+    //     { name: "Raj" },
+
+    //     {
+    //         $unset: {
+    //             salary: ""
+    //         }
+    //     }
+    // )
+
+
+
+    // =========================================
+    // 27. $push
+    // =========================================
+
+    // Add value into array
+    // await User.updateOne(
+    //     { name: "Raj" },
+
+    //     {
+    //         $push: {
+    //             skills: "React"
+    //         }
+    //     }
+    // )
+
+
+
+    // =========================================
+    // 28. $pull
+    // =========================================
+
+    // Remove value from array
+    // await User.updateOne(
+    //     { name: "Raj" },
+
+    //     {
+    //         $pull: {
+    //             skills: "React"
+    //         }
+    //     }
+    // )
+
+
+
+    // =========================================
+    // 29. Pagination
+    // =========================================
+
+    // const page = 2
+    // const limit = 5
+
+    // Formula:
+    // skip = (page - 1) * limit
+
+    // await User.find()
+    //     .skip((page - 1) * limit)
+    //     .limit(limit)
+
+
+
+    // =========================================
+    // 30. Complex Query Example
+    // =========================================
+
+    // unmarried male users
+    // salary >= 50000
+    // age < 30
+    // sort by salary descending
+    // show only selected fields
+
+    const users = await User.find({
+
+        $and: [
+
+            { isMarried: false },
+
+            { gender: "male" },
+
+            {
+                salary: {
+                    $gte: 50000
+                }
+            },
+
+            {
+                age: {
+                    $lt: 30
+                }
+            }
+        ]
+    })
+
+    .sort({
+        salary: -1
+    })
+
+    .limit(5)
+
+    .select("name salary age")
+
+
+
+
+
     console.log(users)
 }
 getInformation()
