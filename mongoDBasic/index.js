@@ -33,7 +33,18 @@ async function getInformation(){
     // const users  = await User.find({isMarried:false}).select("name salary").sort("-salary") // sort by specific columns in DESC order
     // const users  = await User.find({isMarried:false}).select("name salary").sort("-salary").limit(2) // sort by specific columns in DESC order and limit the documents
 
-    const users  = await User.find({isMarried:false}).countDocuments(); // count the number of records
+    // const users  = await User.find({isMarried:false}).countDocuments(); // count the number of records
+
+    //comparision operator
+
+    // const users = await User.find({age:{$eq:30}}) // age equal to 30
+    // const users = await User.find({age:{$ne:30}}) // age not equal to 30
+    // const users = await User.find({age:{$gt:30}}) // age greater than  30
+    // const users = await User.find({age:{$gte:30}}) // age greater than equal to 30
+    // const users = await User.find({age:{$lt:30}}) // age less than to 30
+    // const users = await User.find({age:{$lte:30}}) // age less than equal to 30
+    // const users = await User.find({age:{$in:[30,31,32,25]}}) // age in []
+    const users = await User.find({age:{$nin:[30,31,32,25]}}) // age not in []
 
     console.log(users)
 }
