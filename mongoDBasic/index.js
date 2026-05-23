@@ -480,6 +480,10 @@ async function getInformation(){
     // users.save()
 
 
+    //update 2nd way:
+
+    const users = await User.findByIdAndUpdate("6a118fce3bfc9ef96b705192",{age:55,isMarried:true},{new:true,runValidators:true})
+
 
 
 
