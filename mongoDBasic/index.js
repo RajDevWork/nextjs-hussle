@@ -21,7 +21,19 @@ async function getInformation(){
 
     // const users = await User.find({isMarried:false}) // filter data by isMarried false
     // const users = await User.find({isMarried:false, salary: {$gt:70000}}) // isMarried : false and salary > 70k
-    const users = await User.findById("6a118fce3bfc9ef96b70519b") // filter data by id
+    // const users = await User.findById("6a118fce3bfc9ef96b70519b") // filter data by id
+
+    //filters
+
+    // const users  = await User.find() // find all the documents
+    // const users  = await User.find({isMarried:false}) // find only isMarried:false documents
+    // const users  = await User.find({isMarried:false}).select("name salary") // select only specific columns
+    // const users  = await User.find({isMarried:false}).select("-name -salary") // exclude only specific columns
+    // const users  = await User.find({isMarried:false}).select("name salary").sort("salary") // sort by specific columns in ASC order
+    // const users  = await User.find({isMarried:false}).select("name salary").sort("-salary") // sort by specific columns in DESC order
+    // const users  = await User.find({isMarried:false}).select("name salary").sort("-salary").limit(2) // sort by specific columns in DESC order and limit the documents
+
+    const users  = await User.find({isMarried:false}).countDocuments(); // count the number of records
 
     console.log(users)
 }
