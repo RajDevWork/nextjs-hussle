@@ -443,35 +443,41 @@ async function getInformation(){
     // sort by salary descending
     // show only selected fields
 
-    const users = await User.find({
+    // const users = await User.find({
 
-        $and: [
+    //     $and: [
 
-            { isMarried: false },
+    //         { isMarried: false },
 
-            { gender: "male" },
+    //         { gender: "male" },
 
-            {
-                salary: {
-                    $gte: 50000
-                }
-            },
+    //         {
+    //             salary: {
+    //                 $gte: 50000
+    //             }
+    //         },
 
-            {
-                age: {
-                    $lt: 30
-                }
-            }
-        ]
-    })
+    //         {
+    //             age: {
+    //                 $lt: 30
+    //             }
+    //         }
+    //     ]
+    // })
 
-    .sort({
-        salary: -1
-    })
+    // .sort({
+    //     salary: -1
+    // })
 
-    .limit(5)
+    // .limit(5)
 
-    .select("name salary age")
+    // .select("name salary age")
+
+    //update one way:
+
+    // const users = await User.findById("6a118fce3bfc9ef96b705192")
+    // users.isMarried = true
+    // users.save()
 
 
 
