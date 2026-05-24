@@ -1,9 +1,10 @@
+import { Button } from '@/components/ui/button';
 import React from 'react';
 
 const page = () => {
   return (
     <div>
-      <h1 className=''>Home page</h1>
+      <Button variant='destructive' className="font-bold">Hello World</Button>
     </div>
   );
 };
