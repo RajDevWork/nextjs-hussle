@@ -31,6 +31,10 @@ export default async function RootLayout({ children }) {
   const courses = await getCourses()
   console.log(courses)
 
+
+  console.log(courses[0]?.instructor?.socialMedia);
+  console.log(courses[1]?.testimonials);
+
   return (
     <html
       lang="en"
