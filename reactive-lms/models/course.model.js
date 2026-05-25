@@ -31,11 +31,13 @@ const courseSchema = new Schema({
     },   
     category:{
         required: true,
-        type: Schema.ObjectId
+        type: Schema.ObjectId,
+        ref:"Category"
     },
     instructor:{
         required: true,
-        type: Schema.ObjectId
+        type: Schema.ObjectId,
+        ref:"User"
     },
     testimonials:{
         required: true,
