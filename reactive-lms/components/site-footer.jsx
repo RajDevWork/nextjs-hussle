@@ -2,7 +2,7 @@ import React from "react";
 import Logo from "./logo";
 import Link from "next/link";
 
-const SiteFooter = () => {
+const SiteFooter = ({ items }) => {
   return (
     <footer className="border-t bg-slate-50">
       <div className="container mx-auto max-w-7xl px-6">
@@ -21,40 +21,16 @@ const SiteFooter = () => {
           {/* Footer Links */}
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-slate-600">
 
-            <Link
-              href="/about"
-              className="hover:text-blue-600 transition-colors"
-            >
-              About
-            </Link>
 
+            {items?.map((item) => (
             <Link
-              href="/courses"
-              className="hover:text-blue-600 transition-colors"
+              key={item.href}
+              href={item.href}
+              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
             >
-              Courses
+              {item.title}
             </Link>
-
-            <Link
-              href="/contact"
-              className="hover:text-blue-600 transition-colors"
-            >
-              Contact
-            </Link>
-
-            <Link
-              href="/privacy-policy"
-              className="hover:text-blue-600 transition-colors"
-            >
-              Privacy
-            </Link>
-
-            <Link
-              href="/terms"
-              className="hover:text-blue-600 transition-colors"
-            >
-              Terms
-            </Link>
+          ))}
 
           </div>
 

@@ -53,7 +53,7 @@ const Layout = ({ children }) => {
       </main>
 
       {/* Footer */}
-      <SiteFooter />
+      <SiteFooter items={navLinks} />
 
     </div>
   );

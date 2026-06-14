@@ -2,57 +2,192 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+
 import Logo from "./logo";
+
+import { Menu, X } from "lucide-react";
+
+import { Button, buttonVariants } from "./ui/button";
+import { cn } from "@/lib/utils";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "./ui/avatar";
 
 const MainNav = ({ items }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <div className="flex items-center justify-between w-full">
+      <div className="flex h-20 w-full items-center justify-between">
+        
+        {/* Left Side */}
+        <div className="flex items-center gap-10">
 
-        {/* Logo */}
-        <Link href="/">
-          <Logo />
-        </Link>
+          <Link href="/">
+            <Logo />
+          </Link>
 
-        {/* Desktop Menu */}
-        <nav className="hidden md:flex items-center gap-8">
-          {items?.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
-            >
-              {item.title}
-            </Link>
-          ))}
-        </nav>
+          <nav className="hidden md:flex items-center gap-8">
+            {items?.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="
+                  relative
+                  text-sm
+                  font-medium
+                  text-slate-600
+                  transition-colors
+                  hover:text-blue-600
+                  after:absolute
+                  after:left-0
+                  after:-bottom-1
+                  after:h-[2px]
+                  after:w-0
+                  after:bg-blue-600
+                  after:transition-all
+                  hover:after:w-full
+                "
+              >
+                {item.title}
+              </Link>
+            ))}
+          </nav>
 
-        {/* Desktop Actions */}
-        <div className="hidden md:flex items-center gap-3">
+        </div>
+
+        {/* Desktop Right Side */}
+        <div className="hidden md:flex items-center gap-4">
 
           <Link
             href="/login"
-            className="rounded-full px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
+            className={cn(
+              buttonVariants({
+                variant: "ghost",
+                size: "sm",
+              })
+            )}
           >
-            Sign In
+            Login
           </Link>
 
-          <Link
-            href="/register"
-            className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 via-violet-600 to-fuchsia-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105"
-          >
-            Get Started →
-          </Link>
+          {/* Register Dropdown */}
+          <DropdownMenu>
+
+            <DropdownMenuTrigger>
+              <div
+                className="
+                  inline-flex
+                  h-9
+                  cursor-pointer
+                  items-center
+                  justify-center
+                  rounded-md
+                  bg-gradient-to-r
+                  from-blue-600
+                  via-violet-600
+                  to-fuchsia-600
+                  px-4
+                  text-sm
+                  font-medium
+                  text-white
+                  shadow-md
+                  transition-all
+                  hover:opacity-90
+                "
+              >
+                Register
+              </div>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent
+              align="end"
+              className="w-56 mt-2"
+            >
+              <DropdownMenuItem>
+                <Link href="/register/student">
+                  Student
+                </Link>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem>
+                <Link href="/register/instructor">
+                  Instructor
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+
+          </DropdownMenu>
+
+          {/* User Menu */}
+          <DropdownMenu>
+
+            <DropdownMenuTrigger>
+              <div className="cursor-pointer">
+                <Avatar className="ring-2 ring-slate-200 hover:ring-blue-500 transition">
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="Profile"
+                  />
+                  <AvatarFallback>RL</AvatarFallback>
+                </Avatar>
+              </div>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent
+              align="end"
+              className="w-56 mt-2"
+            >
+              <DropdownMenuItem>
+                <Link href="/account">
+                  Profile
+                </Link>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem>
+                <Link href="/account/enrolled-courses">
+                  My Courses
+                </Link>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem>
+                <Link href="/account/certificates">
+                  Certificates
+                </Link>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem>
+                <Link href="/logout">
+                  Logout
+                </Link>
+              </DropdownMenuItem>
+
+            </DropdownMenuContent>
+
+          </DropdownMenu>
 
         </div>
 
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 rounded-lg hover:bg-slate-100"
+          className="
+            md:hidden
+            rounded-lg
+            p-2
+            hover:bg-slate-100
+            transition
+          "
         >
           {isOpen ? (
             <X className="h-6 w-6" />
@@ -65,41 +200,79 @@ const MainNav = ({ items }) => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden absolute top-20 left-0 right-0 bg-white border-b shadow-lg">
+        <div
+          className="
+            absolute
+            left-0
+            right-0
+            top-20
+            z-50
+            border-b
+            bg-white
+            shadow-lg
+            md:hidden
+          "
+        >
+          <div className="container py-6">
 
-          <div className="container py-6 flex flex-col gap-5">
+            <div className="flex flex-col gap-5">
 
-            {items?.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="text-sm font-medium text-slate-700 hover:text-blue-600"
-              >
-                {item.title}
-              </Link>
-            ))}
+              {items?.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className="
+                    text-sm
+                    font-medium
+                    text-slate-700
+                    hover:text-blue-600
+                  "
+                >
+                  {item.title}
+                </Link>
+              ))}
 
-            <div className="flex flex-col gap-3 pt-4 border-t">
+              <div className="mt-2 border-t pt-4 flex flex-col gap-3">
 
-              <Link
-                href="/login"
-                className="text-center rounded-lg border px-4 py-3 text-sm font-medium"
-              >
-                Sign In
-              </Link>
+                <Link
+                  href="/login"
+                  onClick={() => setIsOpen(false)}
+                  className="
+                    rounded-xl
+                    border
+                    py-3
+                    text-center
+                    font-medium
+                    hover:bg-slate-50
+                  "
+                >
+                  Login
+                </Link>
 
-              <Link
-                href="/register"
-                className="text-center rounded-lg bg-gradient-to-r from-blue-600 via-violet-600 to-fuchsia-600 px-4 py-3 text-sm font-semibold text-white"
-              >
-                Get Started
-              </Link>
+                <Link
+                  href="/register"
+                  onClick={() => setIsOpen(false)}
+                  className="
+                    rounded-xl
+                    bg-gradient-to-r
+                    from-blue-600
+                    via-violet-600
+                    to-fuchsia-600
+                    py-3
+                    text-center
+                    font-semibold
+                    text-white
+                  "
+                >
+                  Get Started
+                </Link>
+
+              </div>
 
             </div>
 
           </div>
-
         </div>
       )}
     </>
