@@ -120,7 +120,7 @@ const HomePage = () => {
           </span>
           <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight">
             Learn By Doing With
-            <span className="block bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
                 Reactive Learning
             </span>
             </h1>
@@ -248,6 +248,10 @@ const HomePage = () => {
         </div>
       </section>
     
+
+          {/* Support section */ }
+
+          <Support />
        
     </>
   );

@@ -21,7 +21,7 @@ const Element = () => {
 
                     <h1 className="mt-6 text-5xl md:text-6xl font-extrabold leading-tight text-slate-900">
                     Learn By
-                    <span className="block bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
+                    <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
                         Doing Real Projects
                     </span>
                     </h1>
@@ -122,7 +122,7 @@ const Element = () => {
 
                     <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight">
                     Put Your Learning
-                    <span className="block bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
+                    <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
                         Into Practice
                     </span>
                     </h2>
