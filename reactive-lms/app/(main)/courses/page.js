@@ -22,6 +22,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import SearchCourse from "./_components/SearchCourse";
 import SortCourse from "./_components/SortCourse";
 import FilterCourseMobile from "./_components/FilterCourseMobile";
+import ActiveFilters from "./_components/ActiveFilters";
+import FilterCourse from "./_components/FilterCourse";
 
 const SORT_OPTIONS = [
   { label: "Price: Low to High", value: "price-asc" },
@@ -176,120 +178,12 @@ const CoursesPage = () => {
       
       {/* header ends */}
       {/* active filters */}
-      <div className="flex items-center gap-2 flex-wrap">
-        {/* active categories */}
-        {filter.categories.length > 0 &&
-          filter.categories.map((category) => (
-            <Button
-              key={category}
-              variant="ghost"
-              className="rounded-full
-bg-blue-50
-text-blue-700
-hover:bg-blue-100
-border
-border-blue-100"
-              onClick={() =>
-                applyArrayFilter({ type: "categories", value: category })
-              }
-            >
-              {category}
-              <X className="w-3" />
-            </Button>
-          ))}
-        {/* active prices */}
-        {filter.price.length > 0 &&
-          filter.price.map((price) => (
-            <Button
-              key={price}
-              variant="ghost"
-              className="rounded-full
-bg-blue-50
-text-blue-700
-hover:bg-blue-100
-border
-border-blue-100"
-              onClick={() => applyArrayFilter({ type: "price", value: price })}
-            >
-              {price}
-              <X className="w-3" />
-            </Button>
-          ))}
-      </div>
+      <ActiveFilters filter={filter} applyArrayFilter={applyArrayFilter}/>
       <section className="pb-24 pt-6">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
           {/* Filters */}
           {/* these component can be re use for mobile also */}
-          <div className="hidden lg:block">
-            <div className="sticky top-24 rounded-3xl border bg-white p-6 shadow-sm">
-            <Accordion defaultValue={["categories"]} type="multiple">
-              {/* Categories filter */}
-              <AccordionItem value="categories">
-                <AccordionTrigger className="py-3 text-sm text-gray-400 hover:text-gray-500">
-                  <span className="font-medium text-gray-900">Categories</span>
-                </AccordionTrigger>
-
-                <AccordionContent className="pt-6 animate-none">
-                  <ul className="space-y-4">
-                    {CATEGORY_OPTIONS.map((option, optionIdx) => (
-                      <li key={option.value} className="flex items-center">
-                        <Checkbox
-                          type="checkbox"
-                          id={`category-${optionIdx}`}
-                          onCheckedChange={() => {
-                            applyArrayFilter({
-                              type: "categories",
-                              value: option.value,
-                            });
-                          }}
-                          checked={filter.categories.includes(option.value)}
-                        />
-                        <label
-                          htmlFor={`category-${optionIdx}`}
-                          className="ml-3 text-sm text-gray-600 cursor-pointer"
-                        >
-                          {option.label}
-                        </label>
-                      </li>
-                    ))}
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-              {/* Price filter */}
-              <AccordionItem value="price">
-                <AccordionTrigger className="py-3 text-sm text-gray-400 hover:text-gray-500">
-                  <span className="font-medium text-gray-900">Price</span>
-                </AccordionTrigger>
-
-                <AccordionContent className="pt-6 animate-none">
-                  <ul className="space-y-4">
-                    {PRICE_OPTIONS.map((option, optionIdx) => (
-                      <li key={option.value} className="flex items-center">
-                        <Checkbox
-                          type="checkbox"
-                          id={`price-${optionIdx}`}
-                          onCheckedChange={() => {
-                            applyArrayFilter({
-                              type: "price",
-                              value: option.value,
-                            });
-                          }}
-                          checked={filter.price.includes(option.value)}
-                        />
-                        <label
-                          htmlFor={`price-${optionIdx}`}
-                          className="ml-3 text-sm text-gray-600 cursor-pointer"
-                        >
-                          {option.label}
-                        </label>
-                      </li>
-                    ))}
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            </div>
-          </div>
+          <FilterCourse applyArrayFilter={applyArrayFilter} CATEGORY_OPTIONS={CATEGORY_OPTIONS} filter={filter} PRICE_OPTIONS={PRICE_OPTIONS}/>
           {/* Course grid */}
           <div className="lg:col-span-3 grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
             {courses.map((category) => {

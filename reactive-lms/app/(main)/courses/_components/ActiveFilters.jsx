@@ -1,0 +1,50 @@
+import { Button } from '@base-ui/react';
+import { X } from 'lucide-react';
+import React from 'react';
+
+const ActiveFilters = ({filter,applyArrayFilter}) => {
+    return (
+        <div className="flex items-center gap-2 flex-wrap">
+        {/* active categories */}
+        {filter.categories.length > 0 &&
+          filter.categories.map((category) => (
+            <Button
+              key={category}
+              variant="ghost"
+              className="rounded-full
+bg-blue-50
+text-blue-700
+hover:bg-blue-100
+border
+border-blue-100"
+              onClick={() =>
+                applyArrayFilter({ type: "categories", value: category })
+              }
+            >
+              {category}
+              <X className="w-3" />
+            </Button>
+          ))}
+        {/* active prices */}
+        {filter.price.length > 0 &&
+          filter.price.map((price) => (
+            <Button
+              key={price}
+              variant="ghost"
+              className="rounded-full
+bg-blue-50
+text-blue-700
+hover:bg-blue-100
+border
+border-blue-100"
+              onClick={() => applyArrayFilter({ type: "price", value: price })}
+            >
+              {price}
+              <X className="w-3" />
+            </Button>
+          ))}
+      </div>
+    );
+};
+
+export default ActiveFilters;
