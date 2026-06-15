@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookCheck, CheckCheck, Clock10, FileQuestion, MessageSquare, NotepadText, Presentation, Radio, Star, StickyNote, Tv, UsersRound, Video } from 'lucide-react';
+import { MessageSquare,  Presentation,  Star,  UsersRound } from 'lucide-react';
 const CourseInstructor = () => {
     return (
         <>
