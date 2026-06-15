@@ -1,8 +1,36 @@
+'use client'
 import { Button } from '@base-ui/react';
 import { X } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
 
-const ActiveFilters = ({filter,applyArrayFilter}) => {
+const ActiveFilters = () => {
+
+
+    const [filter, setFilter] = useState({
+        categories: ["development"],
+        price: ["free"],
+        sort: "",
+      });
+      
+    
+      //   apply checkbox filter
+      const applyArrayFilter = ({ type, value }) => {
+        const isFilterApplied = filter[type].includes(value);
+    
+        if (isFilterApplied) {
+          setFilter((prev) => ({
+            ...prev,
+            [type]: prev[type].filter((v) => v !== value),
+          }));
+        } else {
+          setFilter((prev) => ({
+            ...prev,
+            [type]: [...prev[type], value],
+          }));
+        }
+      };
+
+
     return (
         <div className="flex items-center gap-2 flex-wrap">
         {/* active categories */}

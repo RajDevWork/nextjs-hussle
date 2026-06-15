@@ -1,4 +1,5 @@
-import React from 'react';
+'use client'
+import React, { useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,7 +25,33 @@ import {
 import { Filter } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-const FilterCourseMobile = ({CATEGORY_OPTIONS,filter,PRICE_OPTIONS}) => {
+const FilterCourseMobile = ({CATEGORY_OPTIONS,PRICE_OPTIONS}) => {
+
+    const [filter, setFilter] = useState({
+        categories: ["development"],
+        price: ["free"],
+        sort: "",
+      });
+      
+    
+      //   apply checkbox filter
+      const applyArrayFilter = ({ type, value }) => {
+        const isFilterApplied = filter[type].includes(value);
+    
+        if (isFilterApplied) {
+          setFilter((prev) => ({
+            ...prev,
+            [type]: prev[type].filter((v) => v !== value),
+          }));
+        } else {
+          setFilter((prev) => ({
+            ...prev,
+            [type]: [...prev[type], value],
+          }));
+        }
+      };
+
+
     return (
         <div className="lg:hidden">
             <Sheet>
