@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 
 import {ConnectToDB} from '@/service/mongo'
-import { getCourses } from "@/queries/courses";
+import { getCourseList } from "@/queries/courses";
 
 
 const geistSans = Geist({
@@ -28,7 +28,7 @@ const poppins = Inter({subsets: ['latin'], variable: "--font-poppins"});
 export default async function RootLayout({ children }) {
 
   await ConnectToDB() // established db connection
-  const courses = await getCourses()
+  const courses = await getCourseList()
   // console.log(courses)
 
 

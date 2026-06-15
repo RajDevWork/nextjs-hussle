@@ -10,6 +10,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import  SectionTitle  from '@/components/section-title';
+import { getCourseList } from "@/queries/courses";
 
 const categories = [
   {
@@ -98,7 +99,12 @@ const courses = [
     thumbnail: "/assets/images/categories/music.jpg",
   },
 ];
-const HomePage = () => {
+const HomePage = async() => {
+
+  const courses = await getCourseList()
+
+  console.log("courses = ",courses)
+
   return (
     <>
       <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32 grainy">
