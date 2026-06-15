@@ -111,8 +111,8 @@ const HomePage = async() => {
         <div className="flex items-center justify-between">
           <SectionTitle>Courses</SectionTitle>
           <Link
-            href={""}
-            className=" text-sm font-medium  hover:opacity-80 flex items-center gap-1"
+            href={"/courses"}
+            className="active:scale-95 text-sm font-medium  hover:opacity-80 flex items-center gap-1"
           >
             Browse All <ArrowRightIcon className="h-4 w-4" />
           </Link>
