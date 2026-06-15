@@ -8,7 +8,7 @@ const Support = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
           {/* Left Content */}
-          <div>
+          <div className="order-2 lg:order-1">
 
             <span className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-600">
               💬 Need Help?
@@ -75,7 +75,7 @@ const Support = () => {
           </div>
 
           {/* Right Image */}
-          <div className="relative flex justify-center">
+          <div className="relative flex justify-center order-1 lg:order-2">
 
             {/* Decorative Background */}
             <div className="absolute inset-0 flex items-center justify-center">
