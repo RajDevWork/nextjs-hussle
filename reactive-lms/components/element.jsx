@@ -94,7 +94,7 @@ const Element = () => {
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
 
                 {/* Image Side */}
-                <div className="relative flex justify-center order-1">
+                <div className="relative flex justify-center order-2 lg:order-1">
 
                     {/* Glow */}
                     <div className="absolute w-[350px] h-[350px] bg-blue-500/10 rounded-full blur-[100px]" />
@@ -104,7 +104,7 @@ const Element = () => {
 
 
                     <Image
-                        src="/assets/images/one.svg"
+                        src="/assets/images/one_1.svg"
                         alt="Put Your Learning Into Practice"
                         width={550}
                         height={450}
@@ -114,7 +114,7 @@ const Element = () => {
                 </div>
 
                 {/* Content Side */}
-                <div className="order-2">
+                <div className="order-1 lg:order-2">
 
                     <span className="inline-flex items-center rounded-full bg-green-100 text-green-700 px-4 py-1.5 text-sm font-semibold">
                     ✨ Step-by-step lessons
