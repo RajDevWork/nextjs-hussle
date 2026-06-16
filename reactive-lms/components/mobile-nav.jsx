@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-
+import React, { useEffect, useState } from 'react';
 import { Button, buttonVariants } from "./ui/button";
 import { useLockBody } from '@/hooks/use-lock-body';
 import {
@@ -12,9 +12,22 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useSession , signOut } from 'next-auth/react';
+
 const MobileNav = ({ items = [] }) => {
 
     useLockBody();
+    useLockBody(); 
+
+    const {data:session} = useSession();
+    const [loginSession, setLoginSession] = useState(null);
+    useEffect(() => {
+        console.log("Test information");
+        setLoginSession(session);
+    },[session]);
+
+
   return (
     <div
       className={cn(
@@ -40,61 +53,106 @@ const MobileNav = ({ items = [] }) => {
         </nav>
 
         {/* CTA Section */}
-        <div className="mt-5 border-t pt-5 flex flex-col gap-3">
+        <div className="mt-5 border-t pt-5 flex gap-3">
 
-          <Link
-            href="/login"
-            className={cn(
-              buttonVariants({
-                variant: "outline",
-                size: "default",
-              }),
-              "w-full"
-            )}
-          >
-            Login
-          </Link>
+          {
+            !loginSession && (
+              <>
+              <Link
+                href="/login"
+                className={cn(
+                  buttonVariants({
+                    variant: "outline",
+                    size: "default",
+                  }),
+                  "flex-1 py-2 px-4"
 
-          <DropdownMenu>
+                )}
+              >
+                Login
+              </Link>
 
-            <DropdownMenuTrigger>
-                <div
+              <DropdownMenu>
+                <DropdownMenuTrigger >
+                  <div
                     className="
-                    flex
-                    w-full
-                    cursor-pointer
-                    items-center
-                    justify-center
-                    rounded-md
-                    bg-gradient-to-r
-                    from-blue-600
-                    via-violet-600
-                    to-fuchsia-600
-                    px-4
-                    py-2
-                    font-medium
-                    text-white
+                      flex
+                      flex-1
+                      cursor-pointer
+                      items-center
+                      justify-center
+                      rounded-md
+                      bg-gradient-to-r
+                      from-blue-600
+                      via-violet-600
+                      to-fuchsia-600
+                      px-4
+                      py-2
+                      font-medium
+                      text-white
                     "
-                >
+                  >
                     Register
-                </div>
+                  </div>
                 </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="w-56">
-              <DropdownMenuItem asChild>
-                <Link href="/register/student">
-                  Student
-                </Link>
-              </DropdownMenuItem>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuItem >
+                    <Link href="/register/student">
+                      Student
+                    </Link>
+                  </DropdownMenuItem>
 
-              <DropdownMenuItem asChild>
-                <Link href="/register/instructor">
-                  Instructor
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
+                  <DropdownMenuItem >
+                    <Link href="/register/instructor">
+                      Instructor
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              </>
+            )
+          }
+          {
+            loginSession && (
+              <>
+                {/* Avatar Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <div className="cursor-pointer">
+                    <Avatar className="ring-2 ring-slate-200 hover:ring-blue-500 transition">
+                      <AvatarImage
+                        src="https://github.com/shadcn.png"
+                        alt="Profile"
+                      />
+                      <AvatarFallback>RL</AvatarFallback>
+                    </Avatar>
+                  </div>
+                </DropdownMenuTrigger>
 
-          </DropdownMenu>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem>
+                    <Link href="/account">Profile</Link>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem>
+                    <Link href="/account/enrolled-courses">My Courses</Link>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem>
+                    <Link href="/account/certificates">Certificates</Link>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem>
+                    <Link href="/logout" onClick={(e) => {e.preventDefault(); signOut(); }}>Logout</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              </>
+            )
+          }
+
+          
 
         </div>
 

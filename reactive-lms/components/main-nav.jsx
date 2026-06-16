@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import Link from "next/link";
 
 import Logo from "./logo";
@@ -18,22 +18,24 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "./ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useSession , signOut } from 'next-auth/react';
 
 const MainNav = ({ items = [] }) => {
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const {data:session} = useSession();
+    const [showMobileMenu, setShowMobileMenu] = useState(false);
+    const [loginSession, setLoginSession] = useState(null);
+
+    useEffect(() => {
+        console.log("Test information");
+        setLoginSession(session);
+    },[session]);
 
   return (
     <>
       <div className="flex h-20 w-full items-center justify-between">
-
         {/* Left Section */}
         <div className="flex items-center gap-10">
-
           <Link href="/">
             <Logo />
           </Link>
@@ -64,125 +66,110 @@ const MainNav = ({ items = [] }) => {
               </Link>
             ))}
           </nav>
-
         </div>
 
         {/* Desktop Actions */}
         <div className="hidden lg:flex items-center gap-4">
 
-          <Link
-            href="/login"
-            className={cn(
-              buttonVariants({
-                variant: "ghost",
-                size: "sm",
-              })
-            )}
-          >
-            Login
-          </Link>
-
-          {/* Register Dropdown */}
-          <DropdownMenu>
-
-            <DropdownMenuTrigger >
-              <div
-                className="
-                  inline-flex
-                  h-9
-                  cursor-pointer
-                  items-center
-                  justify-center
-                  rounded-md
-                  bg-gradient-to-r
-                  from-blue-600
-                  via-violet-600
-                  to-fuchsia-600
-                  px-4
-                  text-sm
-                  font-medium
-                  text-white
-                  shadow-md
-                  transition-all
-                  hover:opacity-90
-                "
+          {
+            !loginSession && (<>
+              <Link
+                href="/login"
+                className={cn(
+                  buttonVariants({
+                    variant: "ghost",
+                    size: "sm",
+                  }),
+                )}
               >
-                Register
-              </div>
-            </DropdownMenuTrigger>
+                Login
+              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <div
+                    className="
+                      inline-flex
+                      h-9
+                      cursor-pointer
+                      items-center
+                      justify-center
+                      rounded-md
+                      bg-gradient-to-r
+                      from-blue-600
+                      via-violet-600
+                      to-fuchsia-600
+                      px-4
+                      text-sm
+                      font-medium
+                      text-white
+                      shadow-md
+                      transition-all
+                      hover:opacity-90
+                    "
+                  >
+                    Register
+                  </div>
+                </DropdownMenuTrigger>
 
-            <DropdownMenuContent
-              align="end"
-              className="w-56"
-            >
-              <DropdownMenuItem >
-                <Link href="/register/student">
-                  Student
-                </Link>
-              </DropdownMenuItem>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem>
+                    <Link href="/register/student">Student</Link>
+                  </DropdownMenuItem>
 
-              <DropdownMenuItem >
-                <Link href="/register/instructor">
-                  Instructor
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
+                  <DropdownMenuItem>
+                    <Link href="/register/instructor">Instructor</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
 
-          </DropdownMenu>
+            )
+          }
+          
+          {
+            loginSession && (
+              <>
+                {/* Avatar Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <div className="cursor-pointer">
+                    <Avatar className="ring-2 ring-slate-200 hover:ring-blue-500 transition">
+                      <AvatarImage
+                        src="https://github.com/shadcn.png"
+                        alt="Profile"
+                      />
+                      <AvatarFallback>RL</AvatarFallback>
+                    </Avatar>
+                  </div>
+                </DropdownMenuTrigger>
 
-          {/* Avatar Dropdown */}
-          <DropdownMenu>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem>
+                    <Link href="/account">Profile</Link>
+                  </DropdownMenuItem>
 
-            <DropdownMenuTrigger >
-              <div className="cursor-pointer">
-                <Avatar className="ring-2 ring-slate-200 hover:ring-blue-500 transition">
-                  <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="Profile"
-                  />
-                  <AvatarFallback>RL</AvatarFallback>
-                </Avatar>
-              </div>
-            </DropdownMenuTrigger>
+                  <DropdownMenuItem>
+                    <Link href="/account/enrolled-courses">My Courses</Link>
+                  </DropdownMenuItem>
 
-            <DropdownMenuContent
-              align="end"
-              className="w-56"
-            >
-              <DropdownMenuItem >
-                <Link href="/account">
-                  Profile
-                </Link>
-              </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/account/certificates">Certificates</Link>
+                  </DropdownMenuItem>
 
-              <DropdownMenuItem >
-                <Link href="/account/enrolled-courses">
-                  My Courses
-                </Link>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem >
-                <Link href="/account/certificates">
-                  Certificates
-                </Link>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem >
-                <Link href="/logout">
-                  Logout
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-
-          </DropdownMenu>
-
+                  <DropdownMenuItem>
+                    <Link href="/logout" onClick={(e) => {e.preventDefault(); signOut(); }}>Logout</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              </>
+            )
+          }
+          
         </div>
 
         {/* Mobile Toggle */}
         <button
-          onClick={() =>
-            setShowMobileMenu((prev) => !prev)
-          }
+          onClick={() => setShowMobileMenu((prev) => !prev)}
           className="
             lg:hidden
             rounded-lg
@@ -197,15 +184,11 @@ const MainNav = ({ items = [] }) => {
             <Menu className="h-6 w-6" />
           )}
         </button>
-
       </div>
 
       {/* Mobile Navigation */}
       {showMobileMenu && (
-        <MobileNav
-          items={items}
-          onClose={() => setShowMobileMenu(false)}
-        />
+        <MobileNav items={items} onClose={() => setShowMobileMenu(false)} />
       )}
     </>
   );
