@@ -19,7 +19,7 @@ const SingleCoursePage = async ({params}) => {
         thumbnail={course?.thumbnail}
       />
 
-      <CourseDetails />
+      <CourseDetails course={course}/>
 
       {/* Testimonials */}
 
