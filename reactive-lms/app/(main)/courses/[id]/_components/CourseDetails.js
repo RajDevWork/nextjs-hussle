@@ -7,6 +7,9 @@ import Image from 'next/image';
 import { formatMyDate } from '@/lib/date';
 
 const CourseDetails = ({course}) => {
+
+
+  // console.log("course={course} = ",course)
     return (
         <section className="py-8 md:py-12 lg:py-24">
         <div className="container mx-auto">
@@ -52,7 +55,7 @@ const CourseDetails = ({course}) => {
               </TabsContent>
               <TabsContent value="curriculum">
                 {/* each tab content can be independent component */}
-                <CourseCurriculum />
+                <CourseCurriculum course={course}/>
               </TabsContent>
               <TabsContent value="instructor">
                 {/* each tab content can be independent component */}

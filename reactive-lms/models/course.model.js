@@ -17,11 +17,11 @@ const courseSchema = new Schema({
         required: true,
         type: String
     },
-    modules:{
+    modules:[{
         required: true,
         type: [Schema.ObjectId],
         ref:'Module'
-    },
+    }],
     price:{
         required: true,
         type: Number
