@@ -12,7 +12,11 @@ const SingleCoursePage = async ({params}) => {
 
   return (
     <>
-      <CourseDetailsIntro />
+      <CourseDetailsIntro 
+        title={course?.title}
+        subtitle={course?.subtitle}
+        thumbnail={course?.thumbnail}
+      />
 
       <CourseDetails />
 
