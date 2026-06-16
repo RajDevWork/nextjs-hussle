@@ -5,6 +5,8 @@ import { User } from "@/models/user.model";
 import { Testimonial } from "@/models/testimonial.model";
 import { Module } from "@/models/module.model";
 import { replaceMongoIdInArray, replaceMongoIdInObject } from "@/lib/convertData";
+import { getTestimonialsForCourse } from "./testimonials";
+import { getEnrollmentsForCourse } from "./enrollments";
 export async function getCourseList(){
     const courses = await Course.find().select(["title","subtitle","thumbnail","price","category","instructor"]).populate({
         path:'category',
@@ -46,5 +48,48 @@ export async function getCourseDetails(id){
 }
 
 export async function getCourseDetailsByInstructor(instructorId){
+
+
+    const courses = await Course.find({instructor: instructorId }).lean();
+
+    //get enrollments for each course of the instructor
+    const enrollments = await Promise.all(
+        courses.map(async (course) => {
+            const enrollment = await getEnrollmentsForCourse(course.
+                _id.toString());
+                return enrollment;
+        })
+    );
+
+    //calculate total enrollments for all courses of the instructor
+    const totalEnrollments = enrollments.reduce(( item, currentValue )=> {
+        return item.length + currentValue.length;
+    });
+    
+    /**
+     * Get all testimonials for each course and calculate average rating
+     * 
+     */
+    const tesimonials = await Promise.all(
+        courses.map(async (course) => {
+            const tesimonial = await getTestimonialsForCourse(course.
+                _id.toString());
+                return tesimonial;
+        })
+    );
+
+    const totalTestimonials = tesimonials.flat();//flatten the array of arrays into single array
+
+    //calculate average rating
+    const avgRating = (totalTestimonials.reduce(function (acc, obj) {
+        return acc + obj.rating;
+    },0)) / totalTestimonials.length; 
+
+    return {
+        "courses" : courses.length,
+        "enrollments": totalEnrollments,
+        "reviews" : totalTestimonials.length,
+        "ratings" : avgRating.toPrecision(2)
+    } 
 
 }
