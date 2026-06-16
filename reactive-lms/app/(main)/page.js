@@ -52,11 +52,11 @@ const HomePage = async() => {
             and expert-guided learning paths.
             </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="" className={cn(buttonVariants({ size: "lg" }))}>
+            <Link href="/courses" className={cn(buttonVariants({ size: "lg" }))}>
               Explore Now
             </Link>
             <Link
-              href=""
+              href="/register/instructor"
               className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
             >
               Become An Instructor
