@@ -1,50 +1,11 @@
 import SectionTitle from '@/components/section-title';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import Image from 'next/image';
 import React from 'react';
-const courses = [
-  {
-    id: 1,
-    title: "Design",
-    thumbnail: "/assets/images/categories/design.jpg",
-  },
 
-  {
-    id: 3,
-    title: "Development",
-    thumbnail: "/assets/images/categories/development.jpg",
-  },
-  {
-    id: 4,
-    title: "Marketing",
-    thumbnail: "/assets/images/categories/marketing.jpg",
-  },
-  {
-    id: 5,
-    title: "IT & Software",
-    thumbnail: "/assets/images/categories/it_software.jpg",
-  },
-  {
-    id: 6,
-    title: "Personal Development",
-    thumbnail: "/assets/images/categories/personal_development.jpg",
-  },
-  {
-    id: 7,
-    title: "Business",
-    thumbnail: "/assets/images/categories/business.jpg",
-  },
-  {
-    id: 8,
-    title: "Photography",
-    thumbnail: "/assets/images/categories/photography.jpg",
-  },
-  {
-    id: 9,
-    title: "Music",
-    thumbnail: "/assets/images/categories/music.jpg",
-  },
-];
-const Testimonials = () => {
+const Testimonials = ({testimonials}) => {
+
+  // console.log(" testimonials = ",testimonials)
     return (
         <section className="pb-8 md:pb-12 lg:pb-24">
         <div className="container mx-auto">
@@ -58,7 +19,7 @@ const Testimonials = () => {
             <CarouselPrevious />
             <CarouselNext />
             <CarouselContent className="py-4">
-              {courses.map((course) => (
+              {testimonials.map((course) => (
                 <CarouselItem
                   key={course.id}
                   className="md:basis-1/2 lg:basis-1/3"
@@ -66,16 +27,16 @@ const Testimonials = () => {
                   <div className="sm:break-inside-avoid">
                     <blockquote className="rounded-lg bg-gray-50 p-6  sm:p-8 shadow-sm">
                       <div className="flex items-center gap-4">
-                        <img
-                          alt=""
-                          src="https://i.pravatar.cc/56"
+                        <Image
+                          alt={`Profile ${course?.user?.first_name}`}
+                          src={course?.user?.profile_picture}
                           width="56"
                           height="56"
                           className="size-14 rounded-full object-cover"
                         />
                         <div>
                           <p className="mt-0.5 text-lg font-medium text-gray-900">
-                            John Doe
+                            {course?.user?.first_name} {course?.user?.last_name}
                           </p>
                           <div className="flex justify-center gap-0.5 text-yellow-600">
                             <svg
@@ -122,11 +83,7 @@ const Testimonials = () => {
                         </div>
                       </div>
                       <p className="mt-4 text-gray-700">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing
-                        elit. Culpa sit rerum incidunt, a consequuntur
-                        recusandae ab saepe illo est quia obcaecati neque
-                        quibusdam eius accusamus error officiis atque voluptates
-                        magnam!
+                        {course?.content}
                       </p>
                     </blockquote>
                   </div>
