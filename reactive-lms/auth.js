@@ -18,11 +18,11 @@ export const {
                 if (credentials == null) return null; 
 
         try {
-            const user = await User.findOne({email: credentials?.email });
+            const user = await User.findOne({email: credentials?.email }).select("+password");
             console.log(user);
 
             if (user) {
-                const isMatch = await bcrypt.compare(credentials?.password, user.password )
+                const isMatch = await bcrypt.compare(credentials.password, user.password )
 
                 if (isMatch) {
                     return user;
