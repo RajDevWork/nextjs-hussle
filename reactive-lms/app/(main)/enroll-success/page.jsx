@@ -28,34 +28,68 @@ const Success = async({ searchParams }) => {
     }
   );
 
-  console.log(checkoutSession);
+  // console.log(checkoutSession);
+
+
+  const paymentIntent = checkoutSession?.payment_intent;
+  const paymentStatus = paymentIntent?.status;
+
+  /// Cutomer Info 
+  const customerName = `${loggedInUser?.firstName} ${loggedInUser?.lastName
+  }`;
+  const customerEmail = loggedInUser?.email;
+  const productName = course?.title;
+  //console.log(customerName,customerEmail,productName);
+
+  if (paymentStatus === "succeeded") {
+    /// Update data to enrollment table 
+
+    // Send emails to the instructor and student who paid 
+    
+  }
+
+
+
 
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4">
+    <div className="min-h-[70vh] flex items-center justify-center px-4">
       <div className="max-w-3xl text-center">
-        {/* Success Icon */}
-        <div className="relative mx-auto w-fit">
-          <div className="absolute inset-0 bg-green-500/30 blur-3xl rounded-full" />
-          <CircleCheck className="relative h-32 w-32 text-green-500 mx-auto" />
-        </div>
 
-        {/* Heading */}
-        <h1 className="mt-8 text-4xl md:text-5xl font-bold tracking-tight">
-          Enrollment Successful 🎉
-        </h1>
+        {
+          paymentStatus === "succeeded" && (
+              <>
+                {/* Success Icon */}
+                <div className="relative mx-auto w-fit">
+                  <div className="absolute inset-0 bg-green-500/30 blur-3xl rounded-full" />
+                  <CircleCheck className="relative h-32 w-32 text-green-500 mx-auto" />
+                </div>
 
-        <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto">
-          Congratulations! Your enrollment has been confirmed and you now have
-          full access to the course. Start learning and take the next step in
-          your journey.
-        </p>
+                {/* Heading */}
+                <h1 className="mt-8 text-4xl md:text-5xl font-bold tracking-tight">
+                  Enrollment Successful 🎉
+                </h1>
 
-        {/* Small Info */}
-        <div className="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-          <BookOpen className="h-4 w-4" />
-          <span>Course added to your learning dashboard</span>
-        </div>
+                <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                  Congratulations <strong className="text-foreground">{customerName}</strong>! 🎉
+                  Your enrollment for{" "}
+                  <strong className="text-foreground">{productName}</strong> has been
+                  successfully confirmed. You now have full access to the course and can
+                  begin your learning journey immediately.
+                </p>
+
+                {/* Small Info */}
+                <div className="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                  <BookOpen className="h-4 w-4" />
+                  <span>Course added to your learning dashboard</span>
+                </div>
+              </>
+
+          )
+
+        }
+
+        
 
         {/* Actions */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
