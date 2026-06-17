@@ -96,13 +96,13 @@ export function SignupForm({role}) {
               <Label htmlFor="confirmPassword">Confirm Password</Label>
               <Input id="confirmPassword" name="confirmPassword" type="password" />
             </div>
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full cursor-pointer">
               Create an account
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
-            <Link href="/login" className="underline">
+            <Link href="/login" className="underline cursor-pointer">
               Sign in
             </Link>
           </div>

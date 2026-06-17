@@ -44,7 +44,7 @@ export function LoginForm() {
         <CardTitle className="text-2xl">
         <p className="mt-5 text-3xl font-bold leading-tight text-gray-900 sm:leading-tight sm:text-5xl lg:text-3xl lg:leading-tight font-pj">
               <span className="relative inline-flex sm:inline">
-                <span className="bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] blur-lg filter opacity-30 w-full h-full absolute inset-0"></span>
+                <span className="bg-linear-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] blur-lg filter opacity-30 w-full h-full absolute inset-0"></span>
                 <span className="relative">Login</span>
               </span>
             </p></CardTitle>
@@ -74,17 +74,17 @@ export function LoginForm() {
             </div>
             <Input id="password" name="password" type="password" required />
           </div>
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full cursor-pointer">
             Login
           </Button>
         </div>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link href="/register/instructor" className="underline">
+          <Link href="/register/instructor" className="underline cursor-pointer">
           Instructor
           </Link>
           {" "} or {" "}
-          <Link href="/register/student" className="underline">
+          <Link href="/register/student" className="underline cursor-pointer">
           Student
           </Link>
         </div>
