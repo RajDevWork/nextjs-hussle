@@ -30,8 +30,6 @@ export default async function RootLayout({ children }) {
   await ConnectToDB() // established db connection
   const courses = await getCourseList()
   // console.log(courses)
-
-
   // console.log(courses[0]?.instructor?.socialMedia);
   // console.log(courses[0]?.modules);
   // console.log(courses[1]?.testimonials);
