@@ -62,9 +62,9 @@ export async function getCourseDetailsByInstructor(instructorId){
     );
 
     //calculate total enrollments for all courses of the instructor
-    const totalEnrollments = enrollments.reduce(( item, currentValue )=> {
-        return item.length + currentValue.length;
-    });
+    const totalEnrollments = enrollments.reduce(( acc, obj )=> {
+        return acc + obj.length;
+    },0);
     
     /**
      * Get all testimonials for each course and calculate average rating
