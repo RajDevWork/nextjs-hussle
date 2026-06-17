@@ -44,7 +44,7 @@ bg-blue-50
 text-blue-700
 hover:bg-blue-100
 border
-border-blue-100"
+border-blue-100 flex gap-1 items-center px-2"
               onClick={() =>
                 applyArrayFilter({ type: "categories", value: category })
               }
@@ -64,7 +64,7 @@ bg-blue-50
 text-blue-700
 hover:bg-blue-100
 border
-border-blue-100"
+border-blue-100 flex gap-1 items-center px-2"
               onClick={() => applyArrayFilter({ type: "price", value: price })}
             >
               {price}
