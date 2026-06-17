@@ -4,6 +4,7 @@ import React from 'react';
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { formatPrice } from '@/lib/formatPrice';
+import EnrollCourse from '@/components/enroll-course';
 const CourseDetailsIntro = ({course}) => {
     return (
         <div className="overflow-x-hidden  grainy">
@@ -22,9 +23,7 @@ const CourseDetailsIntro = ({course}) => {
                 </p>
 
                 <div className="mt-6 flex items-center justify-center flex-wrap gap-3">
-                  <Link href="" className={cn(buttonVariants({ size: "lg" }))}>
-                    Enroll Now
-                  </Link>
+                  <EnrollCourse />
                   <Link
                     href=""
                     className={cn(
