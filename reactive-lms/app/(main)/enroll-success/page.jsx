@@ -1,8 +1,36 @@
+import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
+import { stripe } from "@/lib/stripe";
+import { getCourseDetails } from "@/queries/courses";
+import { getUserByEmail } from "@/queries/users";
 import { CircleCheck, ArrowRight, BookOpen } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-const Success = () => {
+const Success = async({ searchParams }) => {
+  const {session_id, courseId} = await searchParams;
+   if (!session_id) {
+    throw new Error("Please provide a vaid session id that start with cs_")
+  }
+
+  const userSession = await auth()
+  if (!userSession?.user?.email) {
+    redirect("/login");
+  } 
+
+  const course = await getCourseDetails(courseId);
+  const loggedInUser = await getUserByEmail(userSession?.user?.email);
+
+  const checkoutSession = await stripe.checkout.sessions.retrieve(
+    session_id,
+    {
+      expand: ["line_items" , "payment_intent"],
+    }
+  );
+
+  console.log(checkoutSession);
+
+
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="max-w-3xl text-center">
