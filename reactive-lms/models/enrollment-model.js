@@ -4,13 +4,9 @@ const enrollmentSchema = new Schema({
     enrollment_date:{
         required: true,
         type: Date
-    },    
-    status:{
-        required: true,
-        type: String
     },
     completion_date:{
-        required: true,
+        required: false,
         type: Date
     },
     method:{
