@@ -80,39 +80,62 @@ const CoursesPage = async () => {
 
     <section
       id="courses"
-      className="container mx-auto space-y-6 px-8 dark:bg-transparent py-6"
+      className="container mx-auto px-4 md:px-6 lg:px-8 py-8"
     >
-      {/* <h2 className="text-xl md:text-2xl font-medium">All Courses</h2> */}
-      {/* header */}
-      <div className="flex items-baseline justify-between  border-gray-200 border-b pb-6 flex-col gap-4 lg:flex-row">
-        <SearchCourse />
+      {/* Header */}
+      <div className="flex flex-col gap-4 border-b pb-6 lg:flex-row lg:items-center lg:justify-between">
+        
+        <div className="w-full lg:max-w-md">
+          <SearchCourse />
+        </div>
 
         <div className="flex items-center justify-end gap-2 max-lg:w-full">
-          <SortCourse SORT_OPTIONS={SORT_OPTIONS}/>
+          <SortCourse SORT_OPTIONS={SORT_OPTIONS} />
 
-          {/* Filter Menus For Mobile */}
-
-          <FilterCourseMobile PRICE_OPTIONS={PRICE_OPTIONS} CATEGORY_OPTIONS={CATEGORY_OPTIONS }/>
-
+          <FilterCourseMobile
+            PRICE_OPTIONS={PRICE_OPTIONS}
+            CATEGORY_OPTIONS={CATEGORY_OPTIONS}
+          />
         </div>
       </div>
-      
-      {/* header ends */}
-      {/* active filters */}
-      <ActiveFilters/>
-      <section className="pb-24 pt-6">
-        <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-          {/* Filters */}
-          {/* these component can be re use for mobile also */}
-          <FilterCourse CATEGORY_OPTIONS={CATEGORY_OPTIONS} PRICE_OPTIONS={PRICE_OPTIONS}/>
-          {/* Course grid */}
-          <div className="lg:col-span-3 grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
-            {courses.map((course) => {
-              return (
-                <CourseCard key={course.id} course={course}/>
-              );
-            })}
+
+      {/* Active Filters */}
+      <div className="mt-4">
+        <ActiveFilters />
+      </div>
+
+      {/* Content */}
+      <section className="pt-8 pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+          
+          {/* Sidebar */}
+          <aside className="hidden lg:block lg:col-span-1 h-fit sticky top-24">
+            <FilterCourse
+              CATEGORY_OPTIONS={CATEGORY_OPTIONS}
+              PRICE_OPTIONS={PRICE_OPTIONS}
+            />
+          </aside>
+
+          {/* Courses */}
+          <div className="lg:col-span-3">
+            {courses?.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {courses.map((course) => (
+                  <CourseCard
+                    key={course.id}
+                    course={course}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="flex min-h-[300px] items-center justify-center rounded-xl border border-dashed">
+                <p className="text-muted-foreground">
+                  No courses found.
+                </p>
+              </div>
+            )}
           </div>
+
         </div>
       </section>
     </section>
