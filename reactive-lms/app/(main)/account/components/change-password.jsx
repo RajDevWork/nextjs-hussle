@@ -3,15 +3,16 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import Image from "next/image";
-import Link from "next/link";
+import { changeOwnPassword } from '@/app/actions/account';
+import { toast } from 'sonner';
+
 
 const ChangePassword = ({email}) => {
 
     const [passwordState, setPasswordState] = useState({
         "oldPassword" : "",
-        "newPassword" : "", 
+        "newPassword" : "",
+        "confirmPassword":"" 
     });
 
     const handleChange = (event) => {
@@ -25,8 +26,13 @@ const ChangePassword = ({email}) => {
     async function doPasswordChange(event) {
         event.preventDefault();
 
+        if(passwordState?.newPassword !== passwordState?.confirmPassword){
+            toast.error(`New password and confirm password do not match. Please try again.`);
+            return;
+        }
+
         try {
-            await changePassword(email,passwordState?.oldPassword, passwordState?.newPassword);
+            await changeOwnPassword(email,passwordState?.oldPassword, passwordState?.newPassword);
             toast.success("Password changed successfully")
         } catch (error) {
             toast.error(`Error: ${error.message}`);
@@ -70,6 +76,9 @@ const ChangePassword = ({email}) => {
             </Label>
             <Input
                 type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                onChange={handleChange}
                 placeholder="Re-type New password"
                 required=""
             />
