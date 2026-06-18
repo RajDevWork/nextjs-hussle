@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { credentialLogin } from "@/app/actions";
+import { toast } from "sonner";
 
 export function LoginForm() {
 
@@ -28,13 +29,16 @@ export function LoginForm() {
         const response = await credentialLogin(formData);
 
         if (!!response.error) {
-            console.log(response.error)
+            // console.log(response.error)
             setError(response.error);
+            toast.error("Invalid email or password!")
         } else {
+          toast.success("LoggedIn Successfully!")
           router.push("/courses")
         }      
       } catch (e) {
         setError(e.message);
+        toast.error("Invalid email or password!")
       }
   }
 
