@@ -50,7 +50,10 @@ export async function getCourseDetails(id){
 export async function getCourseDetailsByInstructor(instructorId){
 
 
-    const courses = await Course.find({instructor: instructorId }).lean();
+    const courses = await Course.find({instructor: instructorId })
+    .populate({path: "category", model: Category })
+    .populate({ path: "instructor", model: User})
+    .lean();
 
     //get enrollments for each course of the instructor
     const enrollments = await Promise.all(
@@ -60,6 +63,22 @@ export async function getCourseDetailsByInstructor(instructorId){
                 return enrollment;
         })
     );
+
+
+    const firstName = courses.length > 0 ? courses[0]?.instructor?.
+    firstName : "Unknown";
+    const lastName = courses.length > 0 ? courses[0]?.instructor?.
+    lastName : "Unknown";
+    const fullInsName = `${firstName} ${lastName}`;
+
+    const Designation = courses.length > 0 ? courses[0]?.instructor?.
+    designation : "Unknown"; 
+
+    const bio = courses.length > 0 ? courses[0]?.instructor?.
+    bio : ""; 
+
+    const insImage = courses.length > 0 ? courses[0]?.instructor?.
+    profilePicture : "Unknown"; 
 
     //calculate total enrollments for all courses of the instructor
     const totalEnrollments = enrollments.reduce(( acc, obj )=> {
@@ -89,7 +108,12 @@ export async function getCourseDetailsByInstructor(instructorId){
         "courses" : courses.length,
         "enrollments": totalEnrollments,
         "reviews" : totalTestimonials.length,
-        "ratings" : avgRating.toPrecision(2)
+        "ratings" : avgRating.toPrecision(2),
+        "instCourses":courses,
+        fullInsName,
+        Designation,
+        insImage,
+        bio
     } 
 
 }
