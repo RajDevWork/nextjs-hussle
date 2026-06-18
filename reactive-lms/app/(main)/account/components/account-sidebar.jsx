@@ -1,7 +1,20 @@
 import React from 'react';
 import Image from "next/image";
 import Menu from './account-menu';
-const AccountSideBar = () => {
+import { auth } from '@/auth';
+import { redirect } from 'next/navigation';
+import { getUserByEmail } from '@/queries/users';
+const AccountSideBar = async() => {
+
+    const session = await auth()
+    if(!session?.user){
+        redirect("/login")
+    }
+
+    //get user details
+    const loggedInUser = await getUserByEmail(session?.user?.email)
+    // console.log("loggedInUser = ",loggedInUser)
+
     return (
         <div className="lg:w-1/4 md:px-3">
         <div className="relative">
@@ -17,10 +30,10 @@ const AccountSideBar = () => {
                     <div>
                         <div className="relative size-28 mx-auto">
                             <Image
-                                src="/assets/images/profile.jpg"
+                                src={loggedInUser?.profilePicture}
                                 className="rounded-full shadow dark:shadow-gray-800 ring-4 ring-slate-50 dark:ring-slate-800"
                                 id="profile-banner"
-                                alt="profile-image"
+                                alt={loggedInUser?.firstName}
                                 width={112}
                                 height={112}
                             />
@@ -31,10 +44,13 @@ const AccountSideBar = () => {
                         </div>
                         <div className="mt-4">
                             <h5 className="text-lg font-semibold">
-                                Jenny Jimenez
+                                {loggedInUser?.firstName} {loggedInUser?.lastName}
                             </h5>
                             <p className="text-slate-400">
-                                jennyhot@hotmail.com
+                                {loggedInUser?.email}
+                            </p>
+                            <p className="text-slate-700 text-sm font-semibold">
+                                As {loggedInUser?.role}
                             </p>
                         </div>
                     </div>
