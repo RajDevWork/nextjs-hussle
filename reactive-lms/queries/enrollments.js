@@ -24,4 +24,16 @@ export async function enrollForCourse(courseId, userId, paymentMethod){
 
 export async function getEnrollmentForUser(userid){
     
+    try {
+        const enrollments = await Enrollment.find({ student: userid})
+        .populate({
+            path: "course",
+            model: Course,
+        }).lean();
+        return replaceMongoIdInArray(enrollments);
+    } catch (err) {
+        throw new Error(err);
+    }
+
+
 }

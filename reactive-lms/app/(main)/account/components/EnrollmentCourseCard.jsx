@@ -2,7 +2,11 @@ import React from 'react';
 import { Badge } from "@/components/ui/badge";
 import { BookOpen } from "lucide-react";
 import Image from "next/image";
-const EnrollmentCourseCard = () => {
+import { getCategoryDetails } from '@/queries/categories';
+const EnrollmentCourseCard = async({enrollment}) => {
+
+    const courseCategory = await getCategoryDetails(enrollment?.course?.category?._id);
+
     return (
         <div
             className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full"
