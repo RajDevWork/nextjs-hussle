@@ -1,4 +1,5 @@
 import { replaceMongoIdInArray, replaceMongoIdInObject } from "@/lib/convertData";
+import { Course } from "@/models/course.model";
 import { Enrollment } from "@/models/enrollment-model";
 
 export async function getEnrollmentsForCourse(courseId){

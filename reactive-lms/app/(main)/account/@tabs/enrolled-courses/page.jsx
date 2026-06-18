@@ -16,6 +16,8 @@ async function EnrolledCourses() {
 
 	const enrollments = await getEnrollmentForUser(loggedInUser?.id);
 
+	// console.log("enrollments", enrollments);
+
 
 	return (
 		<div className="grid sm:grid-cols-2 gap-6">
