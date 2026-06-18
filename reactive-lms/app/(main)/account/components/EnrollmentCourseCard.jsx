@@ -20,17 +20,29 @@ const EnrollmentCourseCard = async({enrollment}) => {
     //console.log(report);
 
     /// Total Completed Modules 
-    const totalCompletedModules = report?.totalCompletedModeules?.length;
+    const totalCompletedModules = report?.totalCompletedModeules?.length ?? 0;
     
     // Get all Quizzes and Assignments 
     const quizzes = report?.quizAssessment?.assessments ?? [];
-    // const totalQuizzes = quizzes?.length;
+    const totalQuizzes = quizzes?.length ?? 0;
 
     // console.log("quizzes = ",quizzes)
 
     // Find attempted quizzes 
     const quizzesTaken = quizzes.filter(q => q.attempted);
-    console.log(quizzesTaken);
+
+    // find how many quizzes answered correct 
+    const totalCorrect = quizzesTaken.map(quiz => {
+        const item = quiz.options
+        return item.filter(o => {
+            return o.isCorrect === true && o.isSelected === true
+        })
+    }).filter(elem => elem.length > 0).flat();
+    //console.log(totalCorrect);
+
+    const marksFromQuizzes = totalCorrect?.length * 5 ?? 0;
+    const otherMarks = report?.quizAssessment?.otherMarks ?? 0;
+    const totalMarks = (marksFromQuizzes + otherMarks) ?? 0;
 
     return (
         <div
@@ -61,15 +73,15 @@ const EnrollmentCourseCard = async({enrollment}) => {
                             Total Modules: {enrollment?.course?.modules?.length}
                         </span>
                         <div className="text-md md:text-sm font-medium text-slate-700">
-                            Completed Modules <Badge variant="success">05</Badge>
+                            Completed Modules <Badge variant="success">{totalCompletedModules}</Badge>
                         </div>
                     </div>
                     <div className="flex items-center justify-between mt-2">
                         <span className="text-md md:text-sm font-medium text-slate-700">
-                            Total Quizzes: 10
+                            Total Quizzes: {totalQuizzes}
                         </span>
                         <div className="text-md md:text-sm font-medium text-slate-700">
-                            Quiz taken <Badge variant="success">10</Badge>
+                            Quiz taken <Badge variant="success">{quizzesTaken?.length}</Badge>
                         </div>
                     </div>
                     <div className="flex items-center justify-between mt-2">
@@ -77,7 +89,7 @@ const EnrollmentCourseCard = async({enrollment}) => {
                             Mark from Quizzes
                         </span>
                         <span className="text-md md:text-sm font-medium text-slate-700">
-                            50
+                            {marksFromQuizzes}
                         </span>
                     </div>
                     <div className="flex items-center justify-between mt-2">
@@ -85,7 +97,7 @@ const EnrollmentCourseCard = async({enrollment}) => {
                             Others
                         </span>
                         <span className="text-md md:text-sm font-medium text-slate-700">
-                            50
+                            {otherMarks}
                         </span>
                     </div>
                 </div>
@@ -94,7 +106,7 @@ const EnrollmentCourseCard = async({enrollment}) => {
                         Total Marks
                     </span>
                     <span className="text-md md:text-sm font-medium text-slate-700">
-                        100
+                        {totalMarks}
                     </span>
                 </div>
             </div>
