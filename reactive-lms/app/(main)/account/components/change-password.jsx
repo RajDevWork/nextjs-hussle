@@ -39,8 +39,6 @@ const ChangePassword = ({email}) => {
         }
     }
 
-
-
     return (
         <div>
 <h5 className="text-lg font-semibold mb-4">
