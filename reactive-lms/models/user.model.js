@@ -24,7 +24,8 @@ const userSchema = new Schema({
     },
     phone:{
         required: false,
-        type: String
+        type: String,
+        default:''
     },
     bio:{
         required: false,
@@ -41,6 +42,11 @@ const userSchema = new Schema({
         default:'https://i.pravatar.cc'
     },
     designation:{
+        required: false,
+        type: String,
+        default:''
+    } ,
+    website:{
         required: false,
         type: String,
         default:''
