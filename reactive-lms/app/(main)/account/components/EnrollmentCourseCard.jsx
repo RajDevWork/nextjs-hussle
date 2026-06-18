@@ -3,9 +3,34 @@ import { Badge } from "@/components/ui/badge";
 import { BookOpen } from "lucide-react";
 import Image from "next/image";
 import { getCategoryDetails } from '@/queries/categories';
+import { getReport } from '@/queries/reports';
 const EnrollmentCourseCard = async({enrollment}) => {
 
     const courseCategory = await getCategoryDetails(enrollment?.course?.category?._id);
+
+    // console.log(enrollment)
+    // console.log(courseCategory);
+
+    const filter =  {course: enrollment?.course?._id, student:enrollment?.student?._id }
+
+
+    // console.log("filter = ",JSON.stringify(filter,null,2))
+    //get reports
+    const report = await getReport(filter);
+    //console.log(report);
+
+    /// Total Completed Modules 
+    const totalCompletedModules = report?.totalCompletedModeules?.length;
+    
+    // Get all Quizzes and Assignments 
+    const quizzes = report?.quizAssessment?.assessments ?? [];
+    // const totalQuizzes = quizzes?.length;
+
+    // console.log("quizzes = ",quizzes)
+
+    // Find attempted quizzes 
+    const quizzesTaken = quizzes.filter(q => q.attempted);
+    console.log(quizzesTaken);
 
     return (
         <div
