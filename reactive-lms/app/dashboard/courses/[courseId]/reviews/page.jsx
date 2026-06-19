@@ -1,32 +1,44 @@
 import { columns } from "./_components/columns";
 import { DataTable } from "./_components/data-table";
 
-const reviews = [
-  {
-    id: 1,
-    student: { name: "John Doe" },
-    review: "Nice Course, Thanks for the help",
-    rating: 5,
-  },
-  {
-    id: 1,
-    student: { name: "John Smilga" },
-    review: "Nice Course, Thanks for the help",
-    rating: 5,
-  },
-];
+
+import { getInstructorDashboardData,REVIEW_DATA } from "@/lib/dashboard-helper";
+import { ObjectId } from "mongoose";
+import { getCourseDetails } from "@/queries/courses";
+
 const ReviewsPage = async ({params}) => {
   const {courseId} = await params;
-  console.log("courseId = ",courseId)
+  // console.log("courseId = ",courseId)
 
-  
+  const course = await getCourseDetails(courseId);
+  const rawReviewData = await getInstructorDashboardData(REVIEW_DATA);
+
+  const reviewData = sanitizeData(rawReviewData)
+
+  const reviewDataForCourse = reviewData.filter((review) => review?.courseId?.toString() === courseId)
 
   return (
     <div className="p-6">
-      <h2>Think in a Redux way reviews</h2>
-      <DataTable columns={columns} data={reviews} />
+      <h2>{course?.title}</h2>
+      <DataTable columns={columns} data={reviewDataForCourse} />
     </div>
   );
 };
+
+
+// Sanitize fucntion for handle ObjectID and Buffer
+function sanitizeData(data) {
+  return JSON.parse(
+    JSON.stringify(data, (key, value) => {
+      if (value instanceof ObjectId) {
+          return value.toString();
+      }
+      if (Buffer.isBuffer(value)) {
+        return value.toString("base64")
+      }
+      return value;
+    })
+  );
+}
 
 export default ReviewsPage;
