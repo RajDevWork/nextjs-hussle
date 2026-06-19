@@ -63,7 +63,7 @@ function groupBy(array, keyFn){
 
 
 
-export async function getCourseDetailsByInstructor(instructorId){
+export async function getCourseDetailsByInstructor(instructorId,expand=false){
 
 
     const courses = await Course.find({instructor: instructorId })
@@ -134,6 +134,26 @@ export async function getCourseDetailsByInstructor(instructorId){
     const avgRating = (totalTestimonials.reduce(function (acc, obj) {
         return acc + obj.rating;
     },0)) / totalTestimonials.length; 
+
+
+
+    if(expand){
+
+        /**
+         * Dashboard data ko normalize kar raha hai.
+         *
+         * courses aur enrollments multiple arrays ke form me aa sakte hain
+         * (e.g. har course ke enrollments alag array me).
+         *
+         * flat() nested arrays ko single array me convert karta hai
+         * taaki counting, filtering aur table rendering easy ho jaye.
+        */
+       return{
+        "courses" : courses?.flat(),
+        "enrollments": enrollments?.flat(),
+        "reviews" : totalTestimonials,
+        }
+    }
 
     return {
         "courses" : courses.length,
