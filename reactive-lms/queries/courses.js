@@ -47,6 +47,22 @@ export async function getCourseDetails(id){
     return replaceMongoIdInObject(course)
 }
 
+
+function groupBy(array, keyFn){
+    return array.reduce((acc, item) => {
+        const key = keyFn(item);
+        if (!acc[key]) {
+            acc[key] = [];
+        }
+        acc[key].push(item);
+        return acc
+    },{});
+}
+
+
+
+
+
 export async function getCourseDetailsByInstructor(instructorId){
 
 
@@ -79,6 +95,21 @@ export async function getCourseDetailsByInstructor(instructorId){
 
     const insImage = courses.length > 0 ? courses[0]?.instructor?.
     profilePicture : "Unknown"; 
+
+
+
+    // Group enrollments by course
+    const groupByCourses = groupBy(enrollments.flat(), (item) => item.course);
+
+    /// Calculate total revenue 
+    const totalRevenue = courses.reduce((acc, course) => {
+        const enrollmentsForCourse = groupByCourses[course._id] || [];
+        return acc + enrollmentsForCourse.length * course.price; 
+    },0);
+
+    // console.log("totalRevenue = ",totalRevenue);
+
+
 
     //calculate total enrollments for all courses of the instructor
     const totalEnrollments = enrollments.reduce(( acc, obj )=> {
