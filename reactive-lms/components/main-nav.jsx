@@ -25,10 +25,23 @@ const MainNav = ({ items = [] }) => {
   const {data:session} = useSession();
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [loginSession, setLoginSession] = useState(null);
+    const [loggedInUser, setLoggedInUser] = useState(null);
 
     useEffect(() => {
-        console.log("Test information");
         setLoginSession(session);
+
+        async function fetchMe() {
+            try {
+                const response = await fetch("/api/me");
+                const data = await response.json();
+                console.log(data);
+                setLoggedInUser(data);
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchMe();
+
     },[session]);
 
   return (
