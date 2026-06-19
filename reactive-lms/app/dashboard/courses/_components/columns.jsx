@@ -50,7 +50,7 @@ export const columns = [
     },
   },
   {
-    accessorKey: "isPublished",
+    accessorKey: "active",
     header: ({ column }) => {
       return (
         <Button
@@ -62,7 +62,7 @@ export const columns = [
       );
     },
     cell: ({ row }) => {
-      const isPublished = row.getValue("isPublished") || false;
+      const isPublished = row.getValue("active") || false;
 
       return (
         <Badge className={cn("bg-gray-500", isPublished && "bg-green-500")}>
@@ -74,7 +74,9 @@ export const columns = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const { id } = row.original;
+
+      // console.log("row = ",row);
+      const { _id } = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger>
@@ -84,19 +86,19 @@ export const columns = [
             {/* </Button> */}
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <Link href={`/dashboard/courses/${id}`}>
+            <Link href={`/dashboard/courses/${_id}`}>
               <DropdownMenuItem className="cursor-pointer">
                 <Pencil className="h-4 w-4 mr-2" />
                 Edit
               </DropdownMenuItem>
             </Link>
-            <Link href={`/dashboard/courses/${id}/enrollments`}>
+            <Link href={`/dashboard/courses/${_id}/enrollments`}>
               <DropdownMenuItem className="cursor-pointer">
                 <GraduationCap className="h-4 w-4 mr-2" />
                 View Enrollments
               </DropdownMenuItem>
             </Link>
-            <Link href={`/dashboard/courses/${id}/reviews`}>
+            <Link href={`/dashboard/courses/${_id}/reviews`}>
               <DropdownMenuItem className="cursor-pointer">
                 <Star className="h-4 w-4 mr-2 fill-primary" />
                 View Reviews
