@@ -148,7 +148,7 @@ const MainNav = ({ items = [] }) => {
                   <div className="cursor-pointer">
                     <Avatar className="ring-2 ring-slate-200 hover:ring-blue-500 transition">
                       <AvatarImage
-                        src="https://github.com/shadcn.png"
+                        src={loggedInUser?.profilePicture}
                         alt="Profile"
                       />
                       <AvatarFallback>RL</AvatarFallback>
@@ -160,6 +160,12 @@ const MainNav = ({ items = [] }) => {
                   <DropdownMenuItem>
                     <Link href="/account">Profile</Link>
                   </DropdownMenuItem>
+
+                  {loggedInUser?.role === "instructor" && (
+                      <DropdownMenuItem className="cursor-pointer">
+                      <Link href='/dashboard'> <strong>Instructor Dashboard</strong> </Link> 
+                  </DropdownMenuItem>
+                  )}
 
                   <DropdownMenuItem>
                     <Link href="/account/enrolled-courses">My Courses</Link>
