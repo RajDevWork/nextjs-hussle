@@ -17,7 +17,7 @@ export const Navbar = () => {
       <MobileSidebar />
       <div className="flex items-center justify-end  w-full">
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger>
             <div className="cursor-pointer">
               <Avatar>
                 <AvatarImage

@@ -105,7 +105,7 @@ const EditLive = () => {
                 <FormItem className="flex flex-col">
                   <FormLabel>Date</FormLabel>
                   <Popover>
-                    <PopoverTrigger asChild>
+                    <PopoverTrigger>
                       <FormControl>
                         <Button
                           variant={"outline"}

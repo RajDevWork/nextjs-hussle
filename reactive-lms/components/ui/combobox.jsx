@@ -24,7 +24,7 @@ export const Combobox = ({ options, value, onChange }) => {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger>
         <Button
           variant="outline"
           role="combobox"

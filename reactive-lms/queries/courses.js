@@ -141,6 +141,7 @@ export async function getCourseDetailsByInstructor(instructorId){
         "reviews" : totalTestimonials.length,
         "ratings" : avgRating.toPrecision(2),
         "instCourses":courses,
+        "revenue": totalRevenue,
         fullInsName,
         Designation,
         insImage,
