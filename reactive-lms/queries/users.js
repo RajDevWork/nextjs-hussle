@@ -16,6 +16,11 @@ export async function getUserWithPassword(email) {
 }
 
 
+export async function getUserDetails(userId){
+    const user = await User.findById(userId).lean();
+    return replaceMongoIdInObject(user);
+} 
+
 export async function validatePassword(email, password){
 
     let isMatch = null;

@@ -19,6 +19,8 @@ const ReviewsPage = async ({params}) => {
   const {courseId} = await params;
   console.log("courseId = ",courseId)
 
+  
+
   return (
     <div className="p-6">
       <h2>Think in a Redux way reviews</h2>
