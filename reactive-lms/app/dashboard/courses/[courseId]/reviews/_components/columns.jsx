@@ -1,5 +1,6 @@
 "use client";
 
+import StarRating from "@/components/star-rating";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { GraduationCap } from "lucide-react";
 import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react";
 import Link from "next/link";
+
 
 export const columns = [
   {
@@ -39,6 +41,10 @@ export const columns = [
           Rating <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
+    },
+    cell: ({row}) => {
+      const rating = row.getValue("rating");
+      return <div className="flex"><StarRating rating={rating} /> </div>
     },
   },
   {
