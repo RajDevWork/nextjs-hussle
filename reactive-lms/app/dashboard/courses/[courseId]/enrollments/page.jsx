@@ -1,5 +1,7 @@
+import { ENROLLMENT_DATA, getInstructorDashboardData } from "@/lib/dashboard-helper";
 import { columns } from "./_components/columns";
 import { DataTable } from "./_components/data-table";
+import { getCourseDetails } from '@/queries/courses';
 
 const enrollments = [
   {
@@ -23,13 +25,23 @@ const enrollments = [
     },
   },
 ];
-const EnrollmentsPage = async () => {
+const EnrollmentsPage = async ({params}) => {
+
+    const {courseId} = await params;
+    const course = await getCourseDetails(courseId)
+
+    // console.log("course = ",course);
+
+    const enrollmentData = await getInstructorDashboardData(ENROLLMENT_DATA)
+
+    console.log("enrollmentData = ",enrollmentData)
+
   return (
     <div className="p-6">
       {/* <Link href="/teacher/create">
         <Button>New Course</Button>
       </Link> */}
-      <h2>Think in a Redux way enrollments</h2>
+      <h2>{course?.title}</h2>
       <DataTable columns={columns} data={enrollments} />
     </div>
   );

@@ -21,6 +21,28 @@ const populateReviewData = async (reviews) => {
     return populatedReviews;
 }
 
+const populateEnrollmentData = async (enrollments) => {
+    //console.log(enrollments);
+
+    const populatedEnrollments = await Promise.all(
+        enrollments.map(async (enrollment) => {
+            // Update student information
+            const student = await getUserDetails(enrollment?.student?._id);
+            // console.log(student);
+            enrollment["studentName"] = `${student?.firstName} ${student?.lastName}`;
+            enrollment["studentEmail"] = student?.email;
+            
+            // Update quiz and Progress info
+
+        
+
+        })
+    )
+
+
+}
+
+
 
 
 
@@ -40,7 +62,7 @@ export async function getInstructorDashboardData(dataType){
              return populateReviewData(data?.reviews);
 
             case ENROLLMENT_DATA:
-             return populateReviewData(data?.enrollments);
+             return populateEnrollmentData(data?.enrollments);
         
             default:
                 return data;
