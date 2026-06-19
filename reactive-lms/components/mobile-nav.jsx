@@ -23,7 +23,7 @@ const MobileNav = ({ items = [] }) => {
     const {data:session} = useSession();
     const [loginSession, setLoginSession] = useState(null);
     useEffect(() => {
-        console.log("Test information");
+        // console.log("Test information");
         setLoginSession(session);
     },[session]);
 

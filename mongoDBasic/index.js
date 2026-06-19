@@ -489,7 +489,7 @@ async function getInformation(){
 
 
 
-    console.log(users)
+    // console.log(users)
 }
 getInformation()
 

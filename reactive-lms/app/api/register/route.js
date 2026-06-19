@@ -5,7 +5,7 @@ import { User } from "@/models/user.model";
 
 export const POST = async (request) => {
     const {firstName,lastName, email, password, userRole} = await request.json();
-    console.log(firstName,lastName, email, password, userRole);
+    // console.log(firstName,lastName, email, password, userRole);
 
     await ConnectToDB();
     const hashedPassword = await bcrypt.hash(password,5);
@@ -17,7 +17,7 @@ export const POST = async (request) => {
         password:hashedPassword,
         role: userRole
     }
-    console.log(newUser);
+    // console.log(newUser);
 
     try {
         await User.create(newUser);
