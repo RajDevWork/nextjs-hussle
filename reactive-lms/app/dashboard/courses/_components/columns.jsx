@@ -65,7 +65,7 @@ export const columns = [
       const isPublished = row.getValue("isPublished") || false;
 
       return (
-        <Badge className={cn("bg-gray-500", isPublished && "bg-success")}>
+        <Badge className={cn("bg-gray-500", isPublished && "bg-green-500")}>
           {isPublished ? "Published" : "Unpublished"}
         </Badge>
       );
@@ -78,10 +78,10 @@ export const columns = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Button variant="ghost" className="h-4 w-8 p-0">
+            {/* <Button variant="ghost" className="h-4 w-8 p-0"> */}
               <span className="sr-only">Open Menu</span>
               <MoreHorizontal className="h-4 w-4" />
-            </Button>
+            {/* </Button> */}
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <Link href={`/dashboard/courses/${id}`}>
