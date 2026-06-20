@@ -8,7 +8,7 @@ import { replaceMongoIdInArray, replaceMongoIdInObject } from "@/lib/convertData
 import { getTestimonialsForCourse } from "./testimonials";
 import { getEnrollmentsForCourse } from "./enrollments";
 export async function getCourseList(){
-    const courses = await Course.find().select(["title","subtitle","thumbnail","price","category","instructor"]).populate({
+    const courses = await Course.find({active:true}).select(["title","subtitle","thumbnail","price","category","instructor"]).populate({
         path:'category',
         model: Category
     }).populate({
