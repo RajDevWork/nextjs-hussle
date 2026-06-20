@@ -18,6 +18,7 @@ import { QuizSetForm } from "./_components/quiz-set-form";
 const EditCourse = () => {
   return (
     <>
+
       <AlertBanner
         label="This course is unpublished. It will not be visible in the course."
         variant="warning"
