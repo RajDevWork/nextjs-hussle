@@ -7,6 +7,15 @@ export async function getEnrollmentsForCourse(courseId){
     return replaceMongoIdInArray(enrollments);
 }
 
+/**
+ * Enrolls a student in a course.
+ *
+ * @param {string} courseId - The ID of the course.
+ * @param {string} userId - The ID of the student enrolling in the course.
+ * @param {string} paymentMethod - The payment method used for enrollment.
+ * @returns {Promise<Object>} The newly created enrollment document.
+ * @throws {Error} Throws an error if the enrollment creation fails.
+ */
 export async function enrollForCourse(courseId, userId, paymentMethod){
     const newEnrollment = {
         course: courseId,
