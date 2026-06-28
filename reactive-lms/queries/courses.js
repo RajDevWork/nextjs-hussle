@@ -66,14 +66,15 @@ function groupBy(array, keyFn){
 export async function getCourseDetailsByInstructor(instructorId,expand=false){
 
 
-    const courses = await Course.find({instructor: instructorId })
+    const Publishedcourses = await Course.find({instructor: instructorId, active:true })
     .populate({path: "category", model: Category })
+    .populate({path: "testimonials", model: Testimonial })
     .populate({ path: "instructor", model: User})
     .lean();
 
     //get enrollments for each course of the instructor
     const enrollments = await Promise.all(
-        courses.map(async (course) => {
+        Publishedcourses.map(async (course) => {
             const enrollment = await getEnrollmentsForCourse(course.
                 _id.toString());
                 return enrollment;
@@ -81,19 +82,19 @@ export async function getCourseDetailsByInstructor(instructorId,expand=false){
     );
 
 
-    const firstName = courses.length > 0 ? courses[0]?.instructor?.
+    const firstName = Publishedcourses.length > 0 ? Publishedcourses[0]?.instructor?.
     firstName : "Unknown";
-    const lastName = courses.length > 0 ? courses[0]?.instructor?.
+    const lastName = Publishedcourses.length > 0 ? Publishedcourses[0]?.instructor?.
     lastName : "Unknown";
     const fullInsName = `${firstName} ${lastName}`;
 
-    const Designation = courses.length > 0 ? courses[0]?.instructor?.
+    const Designation = Publishedcourses.length > 0 ? Publishedcourses[0]?.instructor?.
     designation : "Unknown"; 
 
-    const bio = courses.length > 0 ? courses[0]?.instructor?.
+    const bio = Publishedcourses.length > 0 ? Publishedcourses[0]?.instructor?.
     bio : ""; 
 
-    const insImage = courses.length > 0 ? courses[0]?.instructor?.
+    const insImage = Publishedcourses.length > 0 ? Publishedcourses[0]?.instructor?.
     profilePicture : "Unknown"; 
 
 
@@ -102,7 +103,7 @@ export async function getCourseDetailsByInstructor(instructorId,expand=false){
     const groupByCourses = groupBy(enrollments.flat(), (item) => item.course);
 
     /// Calculate total revenue 
-    const totalRevenue = courses.reduce((acc, course) => {
+    const totalRevenue = Publishedcourses.reduce((acc, course) => {
         const enrollmentsForCourse = groupByCourses[course._id] || [];
         return acc + enrollmentsForCourse.length * course.price; 
     },0);
@@ -121,7 +122,7 @@ export async function getCourseDetailsByInstructor(instructorId,expand=false){
      * 
      */
     const tesimonials = await Promise.all(
-        courses.map(async (course) => {
+        Publishedcourses.map(async (course) => {
             const tesimonial = await getTestimonialsForCourse(course.
                 _id.toString());
                 return tesimonial;
@@ -139,6 +140,8 @@ export async function getCourseDetailsByInstructor(instructorId,expand=false){
 
     if(expand){
 
+        const allCourses = await Course.find({instructor: instructorId}).lean()
+
         /**
          * Dashboard data ko normalize kar raha hai.
          *
@@ -149,18 +152,18 @@ export async function getCourseDetailsByInstructor(instructorId,expand=false){
          * taaki counting, filtering aur table rendering easy ho jaye.
         */
        return{
-        "courses" : courses?.flat(),
+        "courses" : allCourses?.flat(),
         "enrollments": enrollments?.flat(),
         "reviews" : totalTestimonials,
         }
     }
 
     return {
-        "courses" : courses.length,
+        "courses" : Publishedcourses.length,
         "enrollments": totalEnrollments,
         "reviews" : totalTestimonials.length,
         "ratings" : avgRating.toPrecision(2),
-        "instCourses":courses,
+        "instCourses":Publishedcourses,
         "revenue": totalRevenue,
         fullInsName,
         Designation,

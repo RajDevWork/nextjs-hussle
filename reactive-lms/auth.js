@@ -28,8 +28,8 @@ export const {
                 if (isMatch) {
                     return user;
                 } else {
-                    console.error("Password Mismatch");
-                    throw new Error("Check your password");
+                    console.error("Invalid Credentials, Please check.");
+                    throw new Error("Invalid Credentials, Please check.");
                 } 
 
             } else {
