@@ -17,49 +17,17 @@ import { cn } from "@/lib/utils";
 import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { updateCourse } from "@/app/actions/course";
 import { toast } from "sonner";
 
 const formSchema = z.object({
-  categoryId: z.string().min(1),
+  value: z.string().min(1),
 });
 
 export const CategoryForm = ({
   initialData,
   courseId,
-  options = [
-    {
-      value: "design",
-      label: "Design",
-    },
-    {
-      value: "development",
-      label: "Development",
-    },
-    {
-      value: "marketing",
-      label: "Marketing",
-    },
-    {
-      value: "it_software",
-      label: "IT & Software",
-    },
-    {
-      value: "personal_development",
-      label: "Personal Development",
-    },
-    {
-      value: "business",
-      label: "Business",
-    },
-    {
-      value: "photography",
-      label: "Photography",
-    },
-    {
-      value: "music",
-      label: "Music",
-    },
-  ],
+  options
 }) => {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
@@ -69,7 +37,7 @@ export const CategoryForm = ({
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      categoryId: initialData?.categoryId || "",
+      value: initialData?.value || "",
     },
   });
 
@@ -77,7 +45,12 @@ export const CategoryForm = ({
 
   const onSubmit = async (values) => {
     try {
-      toast.success("Course updated");
+
+      const selectedCategory = options.find(option => option.value === values.value);
+
+      // console.log("selected Category = ",selectedCategory);
+      await updateCourse(courseId,{"category": selectedCategory.id})
+      toast.success("Course category updated");
       toggleEdit();
       router.refresh();
     } catch (error) {
@@ -86,7 +59,7 @@ export const CategoryForm = ({
   };
 
   const selectedOptions = options.find(
-    (option) => option.value === initialData.categoryId
+    (option) => option.value === initialData.value
   );
 
   return (
@@ -108,13 +81,13 @@ export const CategoryForm = ({
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.categoryId && "text-slate-500 italic"
+            !initialData.value && "text-slate-500 italic"
           )}
         >
           {selectedOptions?.label || "No category"}
         </p>
       )}
-      {console.log({ options })}
+      {/* {console.log({ options })} */}
       {isEditing && (
         <Form {...form}>
           <form
@@ -123,7 +96,7 @@ export const CategoryForm = ({
           >
             <FormField
               control={form.control}
-              name="categoryId"
+              name="value"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
