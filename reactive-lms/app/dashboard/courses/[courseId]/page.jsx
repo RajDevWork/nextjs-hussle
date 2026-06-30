@@ -73,7 +73,7 @@ const EditCourse = async({params}) => {
                 <IconBadge icon={CircleDollarSign} />
                 <h2 className="text-xl">Sell you course</h2>
               </div>
-              <PriceForm initialData={{}} courseId={1} />
+              <PriceForm initialData={{price: course?.price}} courseId={courseId} />
             </div>
           </div>
         </div>
