@@ -21,12 +21,12 @@ import { updateCourse } from "@/app/actions/course";
 import {toast} from 'sonner';
 
 const formSchema = z.object({
-  title: z.string().min(1, {
-    message: "Title is required",
+  subtitle: z.string().min(1, {
+    message: "Sub Title is required",
   }),
 });
 
-export const TitleForm = ({ initialData = {}, courseId }) => {
+export const SubTitleForm = ({ initialData = {}, courseId }) => {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
 
@@ -46,7 +46,7 @@ export const TitleForm = ({ initialData = {}, courseId }) => {
 
       toggleEdit();
       router.refresh();
-      toast.success("Course Title has been updated successfully!");
+      toast.success("Course Sub Title has been updated successfully!");
     } catch (error) {
       toast.error("Something went wrong");
     }
@@ -55,19 +55,19 @@ export const TitleForm = ({ initialData = {}, courseId }) => {
   return (
     <div className="mt-6 border bg-gray-50 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course title
+        Course Sub title
         <Button variant="ghost" onClick={toggleEdit}>
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit Title
+              Edit Sub Title
             </>
           )}
         </Button>
       </div>
-      {!isEditing && <p className="text-sm mt-2">{initialData.title}</p>}
+      {!isEditing && <p className="text-sm mt-2">{initialData.subtitle}</p>}
       {isEditing && (
         <Form {...form}>
           <form
@@ -76,7 +76,7 @@ export const TitleForm = ({ initialData = {}, courseId }) => {
           >
             <FormField
               control={form.control}
-              name="title"
+              name="subtitle"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>

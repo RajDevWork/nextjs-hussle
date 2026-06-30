@@ -14,6 +14,8 @@ export async function createCourse(data){
         throw new Error(e);
     }
 }
+
+/**Update course based on courseId and form data with mapped field to DB */
 export async function updateCourse(courseId, dataToUpdate){
     try{
         await Course.findByIdAndUpdate(courseId,dataToUpdate)
