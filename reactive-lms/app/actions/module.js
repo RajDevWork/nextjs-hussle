@@ -9,7 +9,7 @@
  */
 "use server"
 
-import { Course } from "@/model/course-model";
+import { Course } from "@/models/course.model";
 import { create } from "@/queries/modules";
 
 export async function createModule(data){
@@ -27,6 +27,8 @@ export async function createModule(data){
         // Update the course with the new module's ID
         const course = await Course.findById(courseId);
         // Ensure the course exists before pushing the module ID
+
+        console.log("createdModule._id = ",createdModule._id)
         course.modules.push(createdModule._id);
         course.save();
 

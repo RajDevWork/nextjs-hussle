@@ -15,3 +15,17 @@ export const replaceMongoIdInArray = (array) => {
     const {_id, ...updatedObj} = {...obj, id: obj._id.toString()};
    return updatedObj;
   }
+
+  /**
+   * Generates a URL-friendly slug from a given title
+   * @param {*} title 
+   * @returns 
+   */
+  export const getSlug = (title) => {
+    if (!title) return null;
+
+    const slug = title.toLowerCase().replace(/ /g, -'')
+    .replace(/[^\w-]+/g, '');
+
+    return slug;
+  }

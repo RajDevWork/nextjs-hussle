@@ -19,21 +19,23 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { ModuleList } from "./module-list";
+import { getSlug } from "@/lib/convertData";
+import { createModule } from "@/app/actions/module";
 
 const formSchema = z.object({
   title: z.string().min(1),
 });
-const initialModules = [
-  {
-    id: "1",
-    title: "Module 1",
-    isPublished: true,
-  },
-  {
-    id: "2",
-    title: "Module 2",
-  },
-];
+// const initialModules = [
+//   {
+//     id: "1",
+//     title: "Module 1",
+//     isPublished: true,
+//   },
+//   {
+//     id: "2",
+//     title: "Module 2",
+//   },
+// ];
 export const ModulesForm = ({ initialData, courseId }) => {
   const [modules, setModules] = useState(initialData);
   const router = useRouter();
@@ -53,10 +55,20 @@ export const ModulesForm = ({ initialData, courseId }) => {
 
   const onSubmit = async (values) => {
     try {
+
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("slug", getSlug(values.title));
+      formData.append("courseId", courseId);
+      formData.append("order", modules.length + 1);
+
+      const module = await createModule(formData)
+
+
       setModules((modules) => [
         ...modules,
         {
-          id: Date.now().toString(),
+          id: module?._id.toString(),
           title: values.title,
         },
       ]);

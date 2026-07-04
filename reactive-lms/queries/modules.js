@@ -1,4 +1,4 @@
-import { Module } from "@/model/module.model";
+import { Module } from "@/models/module.model";
 
 export async function create(moduleData) {
     try {
