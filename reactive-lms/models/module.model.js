@@ -27,7 +27,8 @@ const moduleSchema = new mongoose.Schema({
         required:true
     },
     duration:{
-        type:Number
+        type:Number,
+        default:0
     },
     order:{
         required:true,
