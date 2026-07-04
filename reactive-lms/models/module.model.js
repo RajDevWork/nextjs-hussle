@@ -7,10 +7,10 @@ const moduleSchema = new mongoose.Schema({
     },
     description:{
         type:String,
-        required:[true,'Description is required']
     },
-    status:{
+    active:{
         type:String,
+        default:false,
         required:true
     },
     slug:{
@@ -27,6 +27,10 @@ const moduleSchema = new mongoose.Schema({
         required:true
     },
     duration:{
+        type:Number
+    },
+    order:{
+        required:true,
         type:Number
     }
 })
