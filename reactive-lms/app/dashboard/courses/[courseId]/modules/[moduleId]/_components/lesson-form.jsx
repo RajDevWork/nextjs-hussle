@@ -20,11 +20,13 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { LessonList } from "./lesson-list";
 import { LessonModal } from "./lesson-modal";
+import { getSlug } from "@/lib/convertData";
+import { createLesson } from "@/app/actions/lesson";
 
 const formSchema = z.object({
   title: z.string().min(1),
 });
-const initialModules = [
+const initialLession = [
   {
     id: "1",
     title: "Module 1",
@@ -35,9 +37,9 @@ const initialModules = [
     title: "Module 2",
   },
 ];
-export const LessonForm = ({ initialData, courseId }) => {
+export const LessonForm = ({ initialData, moduleId }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [modules, setModules] = useState(initialModules);
+  const [Lession, setLession] = useState(initialData);
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -56,14 +58,23 @@ export const LessonForm = ({ initialData, courseId }) => {
 
   const onSubmit = async (values) => {
     try {
-      setModules((modules) => [
-        ...modules,
+
+        const formData = new FormData();
+        formData.append("title", values.title);
+        formData.append("slug", getSlug(values.title));
+        formData.append("moduleId", moduleId);
+        formData.append("order", Lession.length + 1);
+
+        const lesson = await createLesson(formData)
+
+      setLession((Lession) => [
+        ...Lession,
         {
-          id: Date.now().toString(),
+          id: lesson?._id.toString(),
           title: values.title,
         },
       ]);
-      toast.success("Module created");
+      toast.success("Lession created");
       toggleCreating();
       router.refresh();
     } catch (error) {
@@ -142,20 +153,20 @@ export const LessonForm = ({ initialData, courseId }) => {
         <div
           className={cn(
             "text-sm mt-2",
-            !modules?.length && "text-slate-500 italic"
+            !Lession?.length && "text-slate-500 italic"
           )}
         >
-          {!modules?.length && "No module"}
+          {!Lession?.length && "No module"}
           <LessonList
             onEdit={onEdit}
             onReorder={onReorder}
-            items={modules || []}
+            items={Lession || []}
           />
         </div>
       )}
       {!isCreating && (
         <p className="text-xs text-muted-foreground mt-4">
-          Drag & Drop to reorder the modules
+          Drag & Drop to reorder the Lession
         </p>
       )}
       <LessonModal open={isEditing} setOpen={setIsEditing} />

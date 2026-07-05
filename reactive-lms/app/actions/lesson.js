@@ -1,6 +1,6 @@
 "use server"
  
-import { Module } from "@/model/module.model"; 
+import { Module } from "@/models/module.model"; 
 import { create } from "@/queries/lessons";
 
 export async function createLesson(data){
