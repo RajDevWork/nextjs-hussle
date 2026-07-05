@@ -20,7 +20,7 @@ const Module = async ({ params }) => {
 
   const IndModule = await getModule(moduleId)
 
-  console.log("Module = ",module)
+  // console.log("Module = ",module)
 
   return (
     <>
@@ -33,7 +33,7 @@ const Module = async ({ params }) => {
         <div className="flex items-center justify-between">
           <div className="w-full">
             <Link
-              href={`/dashboard/courses/${1}`}
+              href={`/dashboard/courses/${courseId}`}
               className="flex items-center text-sm hover:opacity-75 transition mb-6"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
