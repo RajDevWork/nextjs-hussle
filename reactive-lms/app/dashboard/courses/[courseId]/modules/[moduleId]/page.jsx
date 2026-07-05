@@ -11,8 +11,17 @@ import Link from "next/link";
 import { ModuleTitleForm } from "./_components/module-title-form";
 import { LessonForm } from "./_components/lesson-form";
 import { CourseActions } from "../../_components/course-action";
+import { getModule } from "@/queries/modules";
 
 const Module = async ({ params }) => {
+
+  const {courseId, moduleId} = await params;
+  // console.log("param = ",param)
+
+  const IndModule = await getModule(moduleId)
+
+  console.log("Module = ",module)
+
   return (
     <>
       <AlertBanner
@@ -42,7 +51,7 @@ const Module = async ({ params }) => {
                 <IconBadge icon={LayoutDashboard} />
                 <h2 className="text-xl">Customize Your module</h2>
               </div>
-              <ModuleTitleForm initialData={{}} courseId={1} chapterId={1} />
+              <ModuleTitleForm initialData={{title: IndModule?.title}} courseId={courseId} chapterId={moduleId} />
             </div>
             <div>
               <div className="flex items-center gap-x-2">

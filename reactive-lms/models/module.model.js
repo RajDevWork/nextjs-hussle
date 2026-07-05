@@ -22,10 +22,7 @@ const moduleSchema = new mongoose.Schema({
         required:true,
         ref:'Course'
     },
-    lessonIds:{
-        type:[mongoose.Schema.Types.ObjectId],
-        required:true
-    },
+    lessonIds:[{  type: mongoose.Schema.Types.ObjectId, ref: "Lesson" }],
     duration:{
         type:Number,
         default:0
