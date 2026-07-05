@@ -1,5 +1,6 @@
 "use server"
  
+import { Lesson } from "@/models/lesson.model";
 import { Module } from "@/models/module.model"; 
 import { create } from "@/queries/lessons";
 
@@ -21,4 +22,16 @@ export async function createLesson(data){
     } catch (e) {
         throw new Error(e);
     }
+}
+
+export async function reOrderLesson(data){
+
+    try {
+        await Promise.all(data.map(async(element) => {
+            await Lesson.findByIdAndUpdate(element.id, {order: element.position});
+        }));
+    } catch (e) {
+        throw new Error(e);
+    }
+
 }

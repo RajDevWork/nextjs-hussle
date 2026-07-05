@@ -21,22 +21,12 @@ import { toast } from "sonner";
 import { LessonList } from "./lesson-list";
 import { LessonModal } from "./lesson-modal";
 import { getSlug } from "@/lib/convertData";
-import { createLesson } from "@/app/actions/lesson";
+import { createLesson, reOrderLesson  } from "@/app/actions/lesson";
 
 const formSchema = z.object({
   title: z.string().min(1),
 });
-const initialLession = [
-  {
-    id: "1",
-    title: "Module 1",
-    isPublished: true,
-  },
-  {
-    id: "2",
-    title: "Module 2",
-  },
-];
+
 export const LessonForm = ({ initialData, moduleId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [Lession, setLession] = useState(initialData);
@@ -85,6 +75,9 @@ export const LessonForm = ({ initialData, moduleId }) => {
   const onReorder = async (updateData) => {
     console.log({ updateData });
     try {
+
+      await reOrderLesson(updateData);
+
       setIsUpdating(true);
 
       toast.success("Lesson reordered");
