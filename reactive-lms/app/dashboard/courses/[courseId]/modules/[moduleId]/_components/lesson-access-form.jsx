@@ -18,21 +18,23 @@ import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { updateLesson } from "@/app/actions/lesson";
 
 const formSchema = z.object({
-  isFree: z.boolean().default(false),
+  access: z.boolean().default(false),
 });
 
 export const LessonAccessForm = ({ initialData, courseId, lessonId }) => {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
+  const [free, setFree] = useState(initialData?.access);
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      isFree: !!initialData.isFree,
+      access: !!free,
     },
   });
 
@@ -40,7 +42,12 @@ export const LessonAccessForm = ({ initialData, courseId, lessonId }) => {
 
   const onSubmit = async (values) => {
     try {
-      toast.success("Lesson updated");
+      // console.log("values = ",values);
+      values["access"] = values["access"]?'public':'private';
+      
+      await updateLesson(lessonId,values);
+      toast.success("Lesson access updated");
+      setFree(!free);
       toggleEdit();
       router.refresh();
     } catch (error) {
@@ -67,10 +74,10 @@ export const LessonAccessForm = ({ initialData, courseId, lessonId }) => {
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.isFree && "text-slate-500 italic"
+            !free && "text-slate-500 italic"
           )}
         >
-          {initialData.isFree ? (
+          {free ? (
             <>This chapter is free for preview</>
           ) : (
             <>This chapter is not free</>
@@ -85,7 +92,7 @@ export const LessonAccessForm = ({ initialData, courseId, lessonId }) => {
           >
             <FormField
               control={form.control}
-              name="isFree"
+              name="access"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                   <FormControl>
