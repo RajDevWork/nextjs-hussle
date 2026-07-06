@@ -17,7 +17,8 @@ const lessonSchema = new Schema({
     },
     video_url:{
         required: false,
-        type: String
+        type: String,
+        default:''
     },    
     active:{
         required: true,
