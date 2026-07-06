@@ -17,6 +17,8 @@ import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { updateLesson } from "@/app/actions/lesson";
+import { getSlug } from "@/lib/convertData";
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -25,8 +27,10 @@ const formSchema = z.object({
 export const LessonTitleForm = ({ initialData, courseId, lessonId }) => {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
+  const [title, setTitle] = useState(initialData?.title)
 
   const toggleEdit = () => setIsEditing((current) => !current);
+
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -37,6 +41,11 @@ export const LessonTitleForm = ({ initialData, courseId, lessonId }) => {
 
   const onSubmit = async (values) => {
     try {
+
+        values["slug"] = getSlug(values.title)
+
+      await updateLesson(lessonId,values)
+      setTitle(values?.title);
       toast.success("Lesson updated");
       toggleEdit();
       router.refresh();
@@ -61,7 +70,7 @@ export const LessonTitleForm = ({ initialData, courseId, lessonId }) => {
         </Button>
       </div>
       {!isEditing && (
-        <p className="text-sm mt-2">{"Introduction to React.js"}</p>
+        <p className="text-sm mt-2">{title}</p>
       )}
       {isEditing && (
         <Form {...form}>
