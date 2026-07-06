@@ -26,10 +26,16 @@ export const LessonModal = ({ open, setOpen,courseId,lesson }) => {
       {/* <DialogTrigger>Open</DialogTrigger> */}
       <DialogContent
         className="sm:max-w-[1200px] w-[96%] overflow-y-auto max-h-[90vh]"
-        onInteractOutside={(e) => {
-          e.preventDefault();
-        }}
+        // onInteractOutside={(e) => {
+        //   e.preventDefault();
+        // }}
       >
+        <DialogHeader>
+          <DialogTitle>Lesson Editor</DialogTitle>
+          <DialogDescription>
+            Customize and manage the settings for this lesson.
+          </DialogDescription>
+        </DialogHeader>
         <div>
           <div className="flex items-center justify-between">
             <div className="w-full">
@@ -58,9 +64,9 @@ export const LessonModal = ({ open, setOpen,courseId,lesson }) => {
                   lessonId={lesson?.id}
                 />
                 <LessonDescriptionForm
-                  initialData={{}}
-                  courseId={"1"}
-                  lessonId={"1"}
+                  initialData={{description:lesson?.description}}
+                  courseId={courseId}
+                  lessonId={lesson?.id}
                 />
               </div>
               <div>

@@ -7,7 +7,8 @@ const lessonSchema = new Schema({
     },
     description:{
         required: false,
-        type: String
+        type: String,
+        default:''
     },
     duration:{
         required: true,
