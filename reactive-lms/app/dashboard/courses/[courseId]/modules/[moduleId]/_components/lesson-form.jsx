@@ -166,7 +166,7 @@ export const LessonForm = ({ initialData, moduleId,courseId }) => {
           Drag & Drop to reorder the Lession
         </p>
       )}
-      <LessonModal open={isEditing} setOpen={setIsEditing} courseId={courseId} lesson={lessonToEdit} />
+      <LessonModal open={isEditing} setOpen={setIsEditing} moduleId={moduleId} courseId={courseId} lesson={lessonToEdit} />
     </div>
   );
 };
