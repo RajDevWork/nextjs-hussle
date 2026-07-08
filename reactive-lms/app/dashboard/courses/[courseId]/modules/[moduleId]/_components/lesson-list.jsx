@@ -17,6 +17,8 @@ export const LessonList = ({ items, onReorder, onEdit }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [modules, setModules] = useState(items);
 
+
+  // console.log("Items = ",modules);
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -51,6 +53,8 @@ export const LessonList = ({ items, onReorder, onEdit }) => {
     return null;
   }
 
+
+  // console.log("module.active = ",module);
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="modules">

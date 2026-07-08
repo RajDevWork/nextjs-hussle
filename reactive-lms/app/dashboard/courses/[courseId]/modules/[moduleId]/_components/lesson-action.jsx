@@ -13,9 +13,10 @@ export const LessonActions = ({ lesson,moduleId,onDelete }) => {
     const [published, setPublished] = useState(lesson?.active);
 
     async function handleSubmit(event) {
+        // console.log("action = ",action);
         event.preventDefault();
         // console.log(action);
-        console.log("Action = ",action)
+        // console.log("Action = ",action)
 
 
             try {
@@ -48,11 +49,11 @@ export const LessonActions = ({ lesson,moduleId,onDelete }) => {
   return (
     <form onSubmit={handleSubmit}>
         <div className="flex items-center gap-x-2">
-        <Button variant="outline" size="sm" onClick={() => setAction("change-active")}>
+        <Button type="submit" variant="outline" size="sm" onClick={() => setAction("change-active")}>
             {published ? "Unpublish" : "Publish"}
         </Button>
 
-        <Button size="sm" onClick={() => setAction("delete")}>
+        <Button type="submit" size="sm" onClick={() => setAction("delete")}>
             <Trash className="h-4 w-4" />
         </Button>
         </div> 

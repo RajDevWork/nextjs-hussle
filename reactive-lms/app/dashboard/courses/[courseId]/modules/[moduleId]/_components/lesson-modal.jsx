@@ -21,6 +21,7 @@ export const LessonModal = ({ open, setOpen,courseId,lesson,moduleId }) => {
 
   // console.log("courseid = ",courseId,"lesson = ",lesson)
   function postDelete(){
+    // console.log("Clicked....")
     setOpen(false);
     onclose();
   }

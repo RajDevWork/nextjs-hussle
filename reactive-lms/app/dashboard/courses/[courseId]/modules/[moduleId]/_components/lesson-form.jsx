@@ -45,6 +45,8 @@ export const LessonForm = ({ initialData, moduleId,courseId }) => {
     },
   });
 
+
+  // console.log("Lession = ",Lession)
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values) => {
@@ -157,7 +159,7 @@ export const LessonForm = ({ initialData, moduleId,courseId }) => {
           <LessonList
             onEdit={onEdit}
             onReorder={onReorder}
-            items={Lession || []}
+            items={Lession}
           />
         </div>
       )}
