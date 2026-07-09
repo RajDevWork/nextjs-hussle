@@ -31,15 +31,16 @@ export const ModuleActions = ({ module,courseId }) => {
 
             case "delete": {
                 if (published) {
-                    toast.error("A published lesson can not be deleted. First unpublish it, then delete");
+                    toast.error("A published Module can not be deleted. First unpublish it, then delete");
                 } else {
                     await deleteModule(module.id,courseId);
+                    toast.success("The Module has been deleted successfully");
                     router.push(`/dashboard/courses/${courseId}`)
                 }
                 break;
             } 
             default:
-                throw new Error("Invalid Lesson Action");
+                throw new Error("Invalid Module Action");
         }
     } catch (e) {
         toast.error(e.message);
