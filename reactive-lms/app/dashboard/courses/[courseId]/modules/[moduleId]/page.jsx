@@ -10,10 +10,10 @@ import {
 import Link from "next/link";
 import { ModuleTitleForm } from "./_components/module-title-form";
 import { LessonForm } from "./_components/lesson-form";
-import { CourseActions } from "../../_components/course-action";
 import { getModule } from "@/queries/modules";
 import { replaceMongoIdInArray } from '@/lib/convertData';
 import { ObjectId } from "mongoose";
+import { ModuleActions } from "./_components/module-action";
 const Module = async ({ params }) => {
 
   const {courseId, moduleId} = await params;
@@ -37,6 +37,8 @@ const Module = async ({ params }) => {
   );
 }
 
+const sanitizedModule = sanitizeData(IndModule);
+
  const rawlessions = await replaceMongoIdInArray(IndModule?.lessonIds).sort((a,b) => a.order - b.order);
 
  const Lessions = sanitizeData(rawlessions);
@@ -59,7 +61,7 @@ const Module = async ({ params }) => {
               Back to course setup
             </Link>
             <div className="flex items-center justify-end">
-              <CourseActions />
+              <ModuleActions module={sanitizedModule} courseId={courseId} />
             </div>
           </div>
         </div>
