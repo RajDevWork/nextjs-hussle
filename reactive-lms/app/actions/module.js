@@ -64,6 +64,8 @@ export async function updateModule(moduleId, data) {
 
 export async function changeModulePublishState(moduleId) {
     const module = await Module.findById(moduleId);
+
+    console.log("module.active = ", !module.active);
     try {
         const res = await Module.findByIdAndUpdate(moduleId, {active: !module.active},{lean:true});
         return res.active

@@ -9,7 +9,7 @@ const moduleSchema = new mongoose.Schema({
         type:String,
     },
     active:{
-        type:String,
+        type:Boolean,
         default:false,
         required:true
     },
