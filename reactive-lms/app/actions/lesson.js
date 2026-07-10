@@ -5,6 +5,7 @@ import { Module } from "@/models/module.model";
 import { create } from "@/queries/lessons";
 import mongoose from "mongoose";
 
+// a function for creating a lession based on form post data
 export async function createLesson(data){
     try {
         const title = data.get("title");
@@ -25,6 +26,7 @@ export async function createLesson(data){
     }
 }
 
+// a function  for reordering the lession list and arrange in order 
 export async function reOrderLesson(data){
 
     try {
@@ -37,6 +39,7 @@ export async function reOrderLesson(data){
 
 }
 
+// a function  for updating the lession based on lessonId and formdata
 export async function updateLesson(lessonId, data) {
     try {
         await Lesson.findByIdAndUpdate(lessonId,data);
