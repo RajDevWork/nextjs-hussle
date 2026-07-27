@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Current Location</title>
+</head>
+<body>
+
+    <h2>Current Location</h2>
+
+    <button type="button" onclick="getLocation()">Get Location</button>
+
+    <p id="result"></p>
+
+    <script>
+
+        function getLocation() {
+
+            if (!navigator.geolocation) {
+                alert("Geolocation is not supported.");
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+
+                (position) => {
+
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    document.getElementById("result").innerHTML = `
+                        Latitude : ${latitude}<br>
+                        Longitude : ${longitude}
+                    `;
+
+                    console.log({
+                        latitude,
+                        longitude
+                    });
+
+                },
+
+                (error) => {
+                    alert(error.message);
+                },
+
+                {
+                    enableHighAccuracy: true
+                }
+
+            );
+
+        }
+
+    </script>
+
+</body>
+</html>
