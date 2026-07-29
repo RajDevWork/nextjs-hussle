@@ -1,13 +1,16 @@
 import express from 'express'
-import AuthRouter from './routes/auth.js'
 import cookieParser from 'cookie-parser';
 import { StatusCodes } from 'http-status-codes';
+import AuthRouter from './routes/auth.route.js'
+import PostRouter from './routes/post.route.js'
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth",AuthRouter);
+
+app.use("/api/posts",PostRouter);
 
 
 
