@@ -3,7 +3,7 @@ import bcrypt  from 'bcryptjs';
 import { StatusCodes } from 'http-status-codes';
 import jwt from "jsonwebtoken";
 
-export const createUser = async (req,res)=>{
+export const registerUser = async (req,res)=>{
 
     try {
         
@@ -94,6 +94,24 @@ export const loginUser = async(req,res)=>{
     } catch (error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message:`Internal Server error! ${error.message}`
+        })
+    }
+}
+
+
+export const logOutUser = async(req,res)=>{
+    try {
+        const {token} = req.cookies;
+
+        res.clearCookie("token");
+
+        return res.status(StatusCodes.OK).json({
+            message:"LoggedOut successful!"
+        })
+        
+    } catch (error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            message:`Internal server error! ${error.message}`
         })
     }
 }

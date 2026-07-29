@@ -1,10 +1,11 @@
 import express from 'express'
-import { createUser, loginUser } from '../controllers/auth.controller.js'
+import { registerUser, loginUser,logOutUser } from '../controllers/auth.controller.js'
 const router = express.Router()
 
 
-router.post("/register",createUser)
+router.post("/register",registerUser)
 router.post("/login",loginUser)
+router.get("/logout",logOutUser)
 
 router.get("/health-check",(req,res)=>{
     res.status(200).json({
