@@ -1,10 +1,9 @@
 import express from 'express'
+import { createUser } from '../controllers/auth.controller.js'
 const router = express.Router()
 
 
-router.post("/register",(req,res)=>{
-
-})
+router.post("/register",createUser)
 
 router.get("/health-check",(req,res)=>{
     res.status(200).json({
