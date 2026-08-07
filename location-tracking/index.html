@@ -15,7 +15,23 @@
 
     <script>
 
-        function getLocation() {
+       /**
+ * Fetches the user's current geographical location using the Browser Geolocation API.
+ *
+ * Steps:
+ * 1. Checks whether the browser supports Geolocation.
+ * 2. Requests the user's permission to access their location.
+ * 3. On success:
+ *    - Retrieves the latitude and longitude.
+ *    - Displays the coordinates on the page.
+ *    - Logs the coordinates to the browser console.
+ * 4. On failure:
+ *    - Displays the error message (e.g., permission denied, location unavailable).
+ * 5. Uses high accuracy mode (GPS when available) for more precise coordinates.
+ */
+
+
+ function getLocation() {
 
             if (!navigator.geolocation) {
                 alert("Geolocation is not supported.");
